@@ -8,7 +8,7 @@ export class HelpCommand extends Command {
 		super(bot);
 	}
 	handle(): void {
-		this.bot.command('help', ctx => {
+		this.bot.help(ctx => {
 			ctx.reply(
 				`Here's the list of supported commands⬇️\n\n${commands
 					.map(
