@@ -14,4 +14,9 @@ export const commands = [
 		description: 'Clear the chat history',
 		emoji: '🧹',
 	},
+	{
+		name: '/weather',
+		description: 'Get the current weather',
+		emoji: '☁️',
+	},
 ];
