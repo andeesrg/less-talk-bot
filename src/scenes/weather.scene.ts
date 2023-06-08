@@ -1,27 +1,36 @@
 import { Composer, Scenes } from 'telegraf';
+import { extractLocation, formWeatherData } from '@helpers';
+import { locationRegex } from '@constants/regex';
+import { weatherService } from '@services';
 
 const locationHandler = new Composer<Scenes.WizardContext>();
-const rateHandler = new Composer<Scenes.WizardContext>();
 
 locationHandler.on('text', async ctx => {
-	if (/^[A-Z{1}a-z]*,[A-Z]+$/gm.test(ctx.message.text)) {
-		await ctx.reply(
-			'Great!Here`s your weather forecast...\nPlease rate our services😊'
-		);
-		return ctx.wizard.next();
+	if (locationRegex.test(ctx.message.text)) {
+		const userLocation = extractLocation(ctx.message.text);
+		if (userLocation) {
+			await ctx.reply('Looking for the weather forecast...');
+			try {
+				const weatherData = await weatherService.getCurrWeather(
+					userLocation
+				);
+				await ctx.reply(await formWeatherData(weatherData));
+			} catch (e) {
+				await ctx.reply('Seems like there`s no such a city!🙁');
+				return await ctx.scene.reenter();
+			}
+		}
+	} else {
+		return await ctx.scene.reenter();
 	}
-});
-rateHandler.on('text', async ctx => {
-	await ctx.reply('Thanks for your rate!We appreciate it =)');
-	return ctx.scene.leave();
+	return await ctx.scene.leave();
 });
 
 export const weather = new Scenes.WizardScene<Scenes.WizardContext>(
 	'weather',
 	async ctx => {
-		await ctx.reply('Enter your location in format "City, COUNTRY CODE"');
+		await ctx.reply('Enter your location in format "City"');
 		return ctx.wizard.next();
 	},
-	locationHandler,
-	rateHandler
+	locationHandler
 );
