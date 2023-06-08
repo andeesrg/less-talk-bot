@@ -1,9 +1,10 @@
 import { Context } from 'telegraf';
+import { WizardContext, WizardSession } from 'telegraf/typings/scenes';
 
-interface SessionData {
-	weather: { location: string; temp: number }[];
+interface Session extends WizardSession {
+	userLocation: string;
 }
 
-export interface IBotContext extends Context {
-	session: SessionData;
+export interface IBotContext extends WizardContext, Context {
+	session: Session;
 }
