@@ -1,5 +1,5 @@
 import { ConfigService } from '@config';
-import { geocodingService } from '@services';
+import { geocodingService } from './geocoding.service';
 import axios from 'axios';
 import { formWeatherUrl } from '@helpers';
 
