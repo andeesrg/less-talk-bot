@@ -7,8 +7,10 @@ export class StartCommand extends Command {
 		super(bot);
 	}
 	handle(): void {
-		this.bot.start(ctx => {
-			ctx.reply('Hello and welcome to the LessTalk Bot!👋🏼');
+		this.bot.start(async ctx => {
+			await ctx.replyWithMarkdownV2(
+				`*Hello and welcome to LessTalk Bot*👋🏼\n\n_See what this bot can do,_ *use* /help`
+			);
 		});
 	}
 }
