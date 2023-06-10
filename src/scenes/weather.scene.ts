@@ -14,10 +14,9 @@ locationHandler.on('text', async ctx => {
 				const weatherData = await weatherService.getCurrWeather(
 					userLocation
 				);
-				await ctx.reply(await formWeatherData(weatherData));
+				await ctx.replyWithMarkdownV2(await formWeatherData(weatherData));
 			} catch (e) {
 				await ctx.reply('Oops something went wrong!🙁');
-				return await ctx.scene.reenter();
 			}
 			return await ctx.scene.leave();
 		}
