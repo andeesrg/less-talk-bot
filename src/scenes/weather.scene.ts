@@ -16,7 +16,7 @@ locationHandler.on('text', async ctx => {
 				);
 				await ctx.reply(await formWeatherData(weatherData));
 			} catch (e) {
-				await ctx.reply('Seems like there`s no such a city!🙁');
+				await ctx.reply('Oops something went wrong!🙁');
 				return await ctx.scene.reenter();
 			}
 		}
