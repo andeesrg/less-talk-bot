@@ -1,3 +1,3 @@
 export { commands } from './commands';
 export { locationRegex } from './regex';
-export { catApiUrl } from './urls';
+export { catApiUrl, dogApiUrl } from './urls';
