@@ -19,11 +19,12 @@ locationHandler.on('text', async ctx => {
 				await ctx.reply('Oops something went wrong!🙁');
 				return await ctx.scene.reenter();
 			}
+			return await ctx.scene.leave();
 		}
 	} else {
+		await ctx.reply('Wrong format!');
 		return await ctx.scene.reenter();
 	}
-	return await ctx.scene.leave();
 });
 
 export const weather = new Scenes.WizardScene<Scenes.WizardContext>(
