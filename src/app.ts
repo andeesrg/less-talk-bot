@@ -7,14 +7,16 @@ import {
 	ClearCommand,
 	HelpCommand,
 	WeatherCommand,
+	CatCommand,
+	DogCommand,
 } from '@commands';
 import { IBotContext } from '@context';
-import { weather } from '@scenes';
+import { weather, cat, dog } from '@scenes';
 
 class Bot {
 	bot: Telegraf<IBotContext>;
 	commands: Command[] = [];
-	stage = new Scenes.Stage<Scenes.WizardContext>([weather]);
+	stage = new Scenes.Stage<Scenes.WizardContext>([weather, cat, dog]);
 
 	constructor(private readonly configService: IConfigService) {
 		this.bot = new Telegraf<IBotContext>(this.configService.get('BOT_TOKEN'));
@@ -32,6 +34,8 @@ class Bot {
 			new ClearCommand(this.bot),
 			new HelpCommand(this.bot),
 			new WeatherCommand(this.bot),
+			new CatCommand(this.bot),
+			new DogCommand(this.bot),
 		];
 		for (const command of this.commands) {
 			command.handle();
