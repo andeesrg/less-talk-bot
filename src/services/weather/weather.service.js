@@ -14,18 +14,21 @@ class WeatherService {
 			this._apiKey
 		);
 		const { data } = await axios.get(formWeatherUrl(geoData, this._apiKey));
-		const transformedData = await this.transformData(await data);
+		const transformedData = await this.transformData({
+			...(await data.main),
+			city: geoData.name,
+		});
 		return transformedData;
 	}
 
 	async transformData(data) {
-		const { main } = data;
 		return {
-			Temperature: Math.floor(main.temp / 17) + '℃',
-			'Feels like': Math.floor(main.feels_like / 17) + '℃',
-			'Min temperature': Math.floor(main.temp_min / 17) + '℃',
-			'Max temperature': Math.floor(main.temp_max / 17) + '℃',
-			Humidity: main.humidity + '%',
+			City: data.city,
+			Temperature: Math.floor(data.temp / 17) + '℃',
+			'Feels like': Math.floor(data.feels_like / 17) + '℃',
+			'Min temperature': Math.floor(data.temp_min / 17) + '℃',
+			'Max temperature': Math.floor(data.temp_max / 17) + '℃',
+			Humidity: data.humidity + '%',
 		};
 	}
 }
