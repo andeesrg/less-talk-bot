@@ -5,7 +5,5 @@ export const extractLocation = msg => {
 	if (!match) return null;
 
 	const userLocation = match[0].split(',');
-	return {
-		city: userLocation[0],
-	};
+	return userLocation[0];
 };
