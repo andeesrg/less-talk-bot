@@ -1,10 +1,12 @@
-import { Context } from 'telegraf';
-import { WizardContext, WizardSession } from 'telegraf/typings/scenes';
+import { Context, Scenes } from 'telegraf';
 
-interface Session extends WizardSession {
+interface MySession extends Scenes.WizardSession {
 	userLocation: string;
+	chatId: number;
 }
 
-export interface IBotContext extends WizardContext, Context {
-	session: Session;
+export interface IBotContext extends Context {
+	session: MySession;
+	scene: Scenes.SceneContextScene<IBotContext, Scenes.WizardSessionData>;
+	wizard: Scenes.WizardContextWizard<IBotContext>;
 }
