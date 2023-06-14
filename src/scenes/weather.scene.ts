@@ -50,7 +50,7 @@ const requestHandler = async (ctx: IBotContext) => {
 timeHandler.on("text", async ctx => {
 	if (!timeRegex.test(ctx.message.text)) {
 		await ctx.replyWithMarkdownV2(
-			`_*Wrong format\\!*_ ❌\n\nEnter hours or mins *without leading 0*`
+			`_*Wrong format\\!*_ ❌\n\nEnter hours or mins in format *h/hh:mm*`
 		);
 		return ctx.wizard.selectStep(3);
 	}
