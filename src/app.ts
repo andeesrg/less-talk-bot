@@ -1,17 +1,17 @@
-import { Telegraf, Scenes } from 'telegraf';
-import LocalSession from 'telegraf-session-local';
-import { ConfigService, IConfigService } from '@config';
 import {
-	Command,
-	StartCommand,
-	ClearCommand,
-	HelpCommand,
-	WeatherCommand,
 	CatCommand,
+	ClearCommand,
+	Command,
 	DogCommand,
-} from '@commands';
-import { IBotContext } from '@context';
-import { weather, cat, dog } from '@scenes';
+	HelpCommand,
+	StartCommand,
+	WeatherCommand,
+} from "@commands";
+import { ConfigService, IConfigService } from "@config";
+import { IBotContext } from "@context";
+import { cat, dog, weather } from "@scenes";
+import { Scenes, Telegraf } from "telegraf";
+import LocalSession from "telegraf-session-local";
 
 class Bot {
 	bot: Telegraf<IBotContext>;
@@ -19,10 +19,10 @@ class Bot {
 	stage = new Scenes.Stage<IBotContext>([weather, cat, dog]);
 
 	constructor(private readonly configService: IConfigService) {
-		this.bot = new Telegraf<IBotContext>(this.configService.get('BOT_TOKEN'));
+		this.bot = new Telegraf<IBotContext>(this.configService.get("BOT_TOKEN"));
 		this.bot.use(
 			new LocalSession<IBotContext>({
-				database: 'sessions.json',
+				database: "sessions.json",
 			}).middleware()
 		);
 		this.bot.use(this.stage.middleware());
