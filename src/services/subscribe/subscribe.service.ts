@@ -1,9 +1,9 @@
-import cron from 'node-cron';
-import { Telegraf } from 'telegraf';
 import { ConfigService } from '@config';
 import { IBotContext } from '@context';
-import { sessionService, weatherService } from '@services';
 import { formWeatherData } from '@helpers';
+import { sessionService, weatherService } from '@services';
+import cron from 'node-cron';
+import { Telegraf } from 'telegraf';
 
 export class SubscribeService {
 	private bot: Telegraf<IBotContext>;
@@ -29,7 +29,9 @@ export class SubscribeService {
 			const data = await weatherService.getCurrWeather(userLocation);
 			new Telegraf(
 				new ConfigService().get('BOT_TOKEN')
-			).telegram.sendMessage(chatId, formWeatherData(data));
+			).telegram.sendMessage(chatId, formWeatherData(data), {
+				parse_mode: 'MarkdownV2',
+			});
 		});
 	}
 }
