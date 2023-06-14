@@ -14,14 +14,14 @@ class WeatherService {
 			this._apiKey
 		);
 		const { data } = await axios.get(formWeatherUrl(geoData, this._apiKey));
-		const transformedData = await this.transformData({
+		const transformedData = await this.#transformData({
 			...(await data.main),
 			city: geoData.name,
 		});
 		return transformedData;
 	}
 
-	async transformData(data) {
+	async #transformData(data) {
 		return {
 			City: data.city,
 			Temperature: Math.floor(data.temp / 17) + '℃',
