@@ -16,7 +16,7 @@ import { weather, cat, dog } from '@scenes';
 class Bot {
 	bot: Telegraf<IBotContext>;
 	commands: Command[] = [];
-	stage = new Scenes.Stage<Scenes.WizardContext>([weather, cat, dog]);
+	stage = new Scenes.Stage<IBotContext>([weather, cat, dog]);
 
 	constructor(private readonly configService: IConfigService) {
 		this.bot = new Telegraf<IBotContext>(this.configService.get('BOT_TOKEN'));
