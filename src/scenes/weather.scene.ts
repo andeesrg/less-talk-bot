@@ -78,11 +78,15 @@ const confirmTimeHandler = async (ctx: IBotContext) => {
 };
 
 answerHandler.action("correctTime", async ctx => {
-	await ctx.deleteMessage();
 	const subscribe = new SubscribeService();
 	subscribe.setReminder();
+	await ctx.editMessageText("✅Great!Time is set");
 
 	return ctx.scene.leave();
+});
+answerHandler.action("uncorrectTime", async ctx => {
+	await ctx.editMessageText("📝Choose another time, please");
+	return ctx.wizard.selectStep(3);
 });
 
 export const weather = new Scenes.WizardScene<IBotContext>(
