@@ -1,36 +1,34 @@
-import { ConfigService } from '@config';
-import { IBotContext } from '@context';
-import { formWeatherData } from '@helpers';
-import { sessionService, weatherService } from '@services';
-import cron from 'node-cron';
-import { Telegraf } from 'telegraf';
+import { ConfigService } from "@config";
+import { IBotContext } from "@context";
+import { formWeatherData, parseDateNow } from "@helpers";
+import { sessionService, weatherService } from "@services";
+import cron from "node-cron";
+import { Telegraf } from "telegraf";
+import { ISubParams } from "./sub.interface";
 
 export class SubscribeService {
-	private bot: Telegraf<IBotContext>;
-	private sessionData: any;
+	bot: Telegraf<IBotContext>;
+	private sessionData: ISubParams;
 
 	constructor() {
 		this.bot = new Telegraf<IBotContext>(
-			new ConfigService().get('BOT_TOKEN')
+			new ConfigService().get("BOT_TOKEN")
 		);
-		this.initSessionData();
+		this.sessionData = JSON.parse(sessionService.readData());
 	}
-	private initSessionData() {
-		const sessionData = JSON.parse(sessionService.readData());
-		this.sessionData = sessionData;
-	}
-	setReminder() {
+	async activateSub() {
 		const {
 			chatId,
 			userLocation,
-			userRemindTime: { hours, mins },
+			userSubTime: { hours, mins } = parseDateNow(),
 		} = this.sessionData;
+		console.log(this.sessionData);
 		cron.schedule(`${mins} ${hours} * * *`, async () => {
 			const data = await weatherService.getCurrWeather(userLocation);
 			new Telegraf(
-				new ConfigService().get('BOT_TOKEN')
+				new ConfigService().get("BOT_TOKEN")
 			).telegram.sendMessage(chatId, formWeatherData(data), {
-				parse_mode: 'MarkdownV2',
+				parse_mode: "MarkdownV2",
 			});
 		});
 	}
