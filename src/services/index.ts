@@ -1,2 +1,3 @@
 export { weatherService } from './weather';
-export { scheduleService } from './shedule';
+export { SubscribeService } from './subscribe';
+export { sessionService } from './session';
