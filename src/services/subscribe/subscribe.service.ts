@@ -22,7 +22,6 @@ export class SubscribeService {
 			userLocation,
 			userSubTime: { hours, mins } = parseDateNow(),
 		} = this.sessionData;
-		console.log(this.sessionData);
 		cron.schedule(`${mins} ${hours} * * *`, async () => {
 			const data = await weatherService.getCurrWeather(userLocation);
 			new Telegraf(
