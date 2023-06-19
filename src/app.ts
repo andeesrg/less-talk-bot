@@ -10,6 +10,7 @@ import {
 import { ConfigService, IConfigService } from "@config";
 import { IBotContext } from "@context";
 import { cat, dog, weather } from "@scenes";
+import { dbService } from "@services";
 import { Scenes, Telegraf } from "telegraf";
 import LocalSession from "telegraf-session-local";
 
@@ -47,3 +48,4 @@ class Bot {
 const bot = new Bot(new ConfigService());
 
 bot.init();
+dbService.connectToDB()
