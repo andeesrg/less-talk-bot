@@ -1,11 +1,11 @@
-import { ConfigService } from '@config';
-import { geocodingService } from './geocoding.service';
-import axios from 'axios';
-import { formWeatherUrl } from '@helpers';
+import { ConfigService } from "@config";
+import { convertToCelcius, formWeatherUrl } from "@helpers";
+import axios from "axios";
+import { geocodingService } from "./geocoding.service";
 
 class WeatherService {
 	constructor() {
-		this._apiKey = new ConfigService().get('WEATHER_API_KEY');
+		this._apiKey = new ConfigService().get("WEATHER_API_KEY");
 	}
 
 	async getCurrWeather(location) {
@@ -24,11 +24,11 @@ class WeatherService {
 	async #transformData(data) {
 		return {
 			City: data.city,
-			Temperature: Math.floor(data.temp / 17) + '℃',
-			'Feels like': Math.floor(data.feels_like / 17) + '℃',
-			'Min temperature': Math.floor(data.temp_min / 17) + '℃',
-			'Max temperature': Math.floor(data.temp_max / 17) + '℃',
-			Humidity: data.humidity + '%',
+			Temperature: convertToCelcius(data.temp),
+			Feels: convertToCelcius(data.feels_like),
+			Min: convertToCelcius(data.temp_min),
+			Max: convertToCelcius(data.temp_max),
+			Humidity: data.humidity + "%",
 		};
 	}
 }
