@@ -10,11 +10,11 @@ export class SubscribeService {
 	bot: Telegraf<IBotContext>;
 	private sessionData: ISubParams;
 
-	constructor() {
+	constructor(private chatIdTerm: number) {
 		this.bot = new Telegraf<IBotContext>(
 			new ConfigService().get("BOT_TOKEN")
 		);
-		this.sessionData = JSON.parse(sessionService.readData());
+		this.sessionData = JSON.parse(sessionService.readData(chatIdTerm));
 	}
 	async activateSub() {
 		const {
