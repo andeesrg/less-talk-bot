@@ -36,6 +36,7 @@
 			"@constants": ["constants"],
 			"@constants/*": ["constants/*"],
 			"@helpers": ["helpers"],
+			"@helpers/*": ["helpers/*"],
 			"@scenes": ["scenes"],
 			"@services": ["services"],
 			"@services/*": ["services/*"],
