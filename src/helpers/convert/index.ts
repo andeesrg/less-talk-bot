@@ -1,0 +1,1 @@
+export { convertToCelcius } from "./convertToCelcius";

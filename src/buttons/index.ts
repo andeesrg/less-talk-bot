@@ -1,2 +1,1 @@
-export { confirmButtons, subButtons } from "./button";
-
+export * from "./buttons";

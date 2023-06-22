@@ -1,7 +1,5 @@
-export { convertToCelcius } from "./convertToCelcius";
-export { extractLocation } from "./extractLocation";
-export { extractTime } from "./extractTime";
-export { formGeocodingUrl, formWeatherUrl } from "./formUrl";
-export { formWeatherData } from "./formWeatherData";
-export { parseDateNow } from "./parseDateNow";
+export * from "./convert";
+export * from "./extract";
+export * from "./form";
+export * from "./parse";
 
