@@ -1,6 +1,10 @@
 import { Context, Scenes } from "telegraf";
 
-interface MySession extends Scenes.WizardSession {
+interface MySceneSession extends Scenes.WizardSessionData {
+	taskId: number | string;
+}
+
+interface MySession extends Scenes.WizardSession<MySceneSession> {
 	userLocation?: string;
 	chatId: number;
 	userSubTime?: { hours: string; mins: string } | null;
@@ -8,6 +12,6 @@ interface MySession extends Scenes.WizardSession {
 
 export interface IBotContext extends Context {
 	session: MySession;
-	scene: Scenes.SceneContextScene<IBotContext, Scenes.WizardSessionData>;
+	scene: Scenes.SceneContextScene<IBotContext, MySceneSession>;
 	wizard: Scenes.WizardContextWizard<IBotContext>;
 }
