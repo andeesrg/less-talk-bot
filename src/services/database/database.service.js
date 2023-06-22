@@ -14,23 +14,69 @@ class DatabaseService {
 		this.users = collection;
 	}
 
-	async setUser(chatId, userName) {
-		const existedUser = await this.isUserExists(chatId, userName);
+	async initUser(chatId, userName) {
+		const existedUser = await this.#isUserExists(chatId, userName);
 		if (existedUser) return { userName: existedUser };
 		await this.users.insertOne({
 			userName,
 			chatId,
+			tasks: [],
 		});
 		return { userName };
 	}
 
-	async isUserExists(chatId, userName) {
-		const matchedUser = await this.users.findOne(
-			{ chatId, userName },
-			{ userName: 1 }
+	async readTasks(chatId) {
+		const user = await this.users.findOne({ chatId });
+		return user.tasks;
+	}
+
+	async createTask(chatId, title) {
+		const tasks = await this.readTasks(chatId);
+		await this.users.updateOne(
+			{ chatId },
+			{
+				$push: {
+					tasks: { title, isCompleted: false, id: tasks.length + 1 },
+				},
+			}
 		);
-		if (matchedUser) return userName;
-		return null;
+	}
+
+	async editTask(chatId, task) {
+		if (task.editType === "status") {
+			await this.users.updateOne(
+				{
+					chatId,
+					"tasks.id": task.id,
+				},
+				{
+					$set: { "tasks.$.isCompleted": task.content },
+				}
+			);
+		} else if (task.editType === "title") {
+			await this.users.updateOne(
+				{
+					chatId,
+					"tasks.id": task.id,
+				},
+				{
+					$set: { "tasks.$.title": task.content },
+				}
+			);
+		}
+	}
+
+	async removeTask(chatId, taskId) {
+		await this.users.updateOne(
+			{ chatId },
+			{ $pull: { tasks: { id: taskId } } }
+		);
+	}
+
+	async #isUserExists(chatId, userName) {
+		const matchedUser = await this.users.findOne({ chatId, userName });
+		if (!matchedUser) return null;
+		return userName;
 	}
 }
 
