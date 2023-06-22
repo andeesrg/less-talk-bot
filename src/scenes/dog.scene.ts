@@ -3,7 +3,7 @@ import { IBotContext } from "@context";
 import axios from "axios";
 import { Scenes } from "telegraf";
 
-const requestHandler = async (ctx: IBotContext) => {
+const requestPicHandler = async (ctx: IBotContext) => {
 	await ctx.reply("👀Looking for a random dog picture...");
 	try {
 		const { data } = await axios.get(dogApiUrl);
@@ -14,4 +14,7 @@ const requestHandler = async (ctx: IBotContext) => {
 	return await ctx.scene.leave();
 };
 
-export const dog = new Scenes.WizardScene<IBotContext>("dog", requestHandler);
+export const dog = new Scenes.WizardScene<IBotContext>(
+	"dog",
+	requestPicHandler
+);
