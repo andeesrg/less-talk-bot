@@ -1,7 +1,7 @@
-import { Telegraf } from 'telegraf';
-import { Command } from '@commands';
-import { IBotContext } from '@context';
-import { commands } from '@constants';
+import { Command } from "@commands";
+import { commands } from "@constants";
+import { IBotContext } from "@context";
+import { Telegraf } from "telegraf";
 
 export class HelpCommand extends Command {
 	constructor(bot: Telegraf<IBotContext>) {
@@ -15,7 +15,7 @@ export class HelpCommand extends Command {
 						({ name, description, emoji }) =>
 							`${name} - ${description}${emoji}\n`
 					)
-					.join('')}`
+					.join("")}`
 			);
 		});
 	}

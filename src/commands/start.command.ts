@@ -1,3 +1,4 @@
+import { tasksControlButtons } from "@buttons";
 import { Command } from "@commands";
 import { IBotContext } from "@context";
 import { dbService } from "@services";
@@ -10,12 +11,13 @@ export class StartCommand extends Command {
 	handle(): void {
 		this.bot.start(async ctx => {
 			ctx.session.chatId = ctx.message.chat.id;
-			const { userName } = await dbService.setUser(
+			const { userName } = await dbService.initUser(
 				ctx.message.chat.id,
 				ctx.message.from.first_name
 			);
 			await ctx.replyWithMarkdownV2(
-				`Hello *${userName}* and welcome to LessTalk Bot👋🏼\n\n_See what this bot can do,_ *use* /help`
+				`Hello *${userName}* and welcome to LessTalk Bot👋🏼\n\n_See what this bot can do,_ *use* /help`,
+				tasksControlButtons()
 			);
 		});
 	}
