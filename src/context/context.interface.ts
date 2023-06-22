@@ -2,7 +2,7 @@ import { Context, Scenes } from "telegraf";
 
 interface MySession extends Scenes.WizardSession {
 	userLocation?: string;
-	chatId?: number;
+	chatId: number;
 	userSubTime?: { hours: string; mins: string } | null;
 }
 
