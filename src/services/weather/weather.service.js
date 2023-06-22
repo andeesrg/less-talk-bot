@@ -15,7 +15,7 @@ class WeatherService {
 		);
 		const { data } = await axios.get(formWeatherUrl(geoData, this._apiKey));
 		const transformedData = await this.#transformData({
-			...(await data.main),
+			...data.main,
 			city: geoData.name,
 		});
 		return transformedData;
