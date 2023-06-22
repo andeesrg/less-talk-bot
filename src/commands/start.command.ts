@@ -9,6 +9,7 @@ export class StartCommand extends Command {
 	}
 	handle(): void {
 		this.bot.start(async ctx => {
+			ctx.session.chatId = ctx.message.chat.id;
 			const { userName } = await dbService.setUser(
 				ctx.message.chat.id,
 				ctx.message.from.first_name

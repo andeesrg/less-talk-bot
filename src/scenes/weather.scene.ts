@@ -11,7 +11,6 @@ const timeHandler = new Composer<IBotContext>();
 const responseConfirmTimeHandler = new Composer<IBotContext>();
 
 const enterHandler = async (ctx: IBotContext) => {
-	ctx.session.chatId = ctx.message?.chat.id;
 	ctx.replyWithMarkdownV2('Enter city in format "*City*"');
 	return ctx.wizard.next();
 };
@@ -91,7 +90,7 @@ responseConfirmTimeHandler.action(actions.confirmTime.action, async ctx => {
 	ctx.reply(
 		`👀You've successfully subscribed on daily WF at ${ctx.session.userLocation}!`
 	);
-	const subscribe = new SubscribeService();
+	const subscribe = new SubscribeService(ctx.session.chatId);
 	await subscribe.activateSub();
 	return ctx.scene.leave();
 });
