@@ -23,24 +23,29 @@ export const confirmButtons = () =>
 	]);
 
 export const tasksControlButtons = () =>
-	Markup.keyboard([
-		Markup.button.callback(
-			taskActions.createTask.text,
-			taskActions.createTask.action
-		),
-		Markup.button.callback(
-			taskActions.readTasks.text,
-			taskActions.readTasks.action
-		),
-		Markup.button.callback(
-			taskActions.editTask.text,
-			taskActions.editTask.action
-		),
-		Markup.button.callback(
-			taskActions.removeTask.text,
-			taskActions.removeTask.action
-		),
-	]).resize();
+	Markup.keyboard(
+		[
+			Markup.button.callback(
+				taskActions.createTask.text,
+				taskActions.createTask.action
+			),
+			Markup.button.callback(
+				taskActions.readTasks.text,
+				taskActions.readTasks.action
+			),
+			Markup.button.callback(
+				taskActions.editTask.text,
+				taskActions.editTask.action
+			),
+			Markup.button.callback(
+				taskActions.removeTask.text,
+				taskActions.removeTask.action
+			),
+		],
+		{
+			columns: 2,
+		}
+	).resize();
 
 export const taskEditButtons = () =>
 	Markup.inlineKeyboard([
