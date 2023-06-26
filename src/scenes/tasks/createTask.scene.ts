@@ -6,7 +6,7 @@ import { Composer, Scenes } from "telegraf";
 const taskTitleHandler = new Composer<IBotContext>();
 
 const enterTaskHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Enter your task title✍🏼");
+	await ctx.reply("Enter task title✍🏼");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {

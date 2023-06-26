@@ -7,7 +7,7 @@ import { Composer, Scenes } from "telegraf";
 const taskIdHandler = new Composer<IBotContext>();
 
 const enterTaskIdHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Enter number/id of task📀");
+	await ctx.reply("Enter number of task📀");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -44,7 +44,7 @@ taskIdHandler.on("text", async ctx => {
 
 const removeTaskHandler = async (ctx: IBotContext) => {
 	await dbService.removeTask(ctx.session.chatId, ctx.scene.session.taskId);
-	await ctx.reply("Task is removed🧹!");
+	await ctx.reply("Task is removed🧹");
 	ctx.scene.leave();
 };
 

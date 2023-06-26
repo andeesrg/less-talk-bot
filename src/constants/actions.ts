@@ -19,20 +19,20 @@ export const subActions = {
 
 export const taskActions = {
 	createTask: {
-		text: "➕ Create a new task",
-		action: "➕ Create a new task",
+		text: "Create task➕",
+		action: "Create task➕",
 	},
 	readTasks: {
-		text: "🗒️ Show list of tasks",
-		action: "🗒️ Show list of tasks",
+		text: "List of tasks🗒️",
+		action: "List of tasks🗒️",
 	},
 	editTask: {
-		text: "📝 Edit task",
-		action: "📝 Edit task",
+		text: "Edit task📝",
+		action: "Edit task📝",
 	},
 	removeTask: {
-		text: "🗑️ Remove task",
-		action: "🗑️ Remove task",
+		text: "Remove task🧹",
+		action: "Remove task🧹",
 	},
 };
 
