@@ -1,4 +1,5 @@
 import { ConfigService } from "@config";
+import { orderTasksId } from "@helpers";
 import { MongoClient } from "mongodb";
 
 class DatabaseService {
@@ -70,6 +71,11 @@ class DatabaseService {
 		await this.users.updateOne(
 			{ chatId },
 			{ $pull: { tasks: { id: taskId } } }
+		);
+		const orderedTasks = orderTasksId(await this.readTasks(chatId));
+		await this.users.findOneAndUpdate(
+			{ chatId },
+			{ $set: { tasks: orderedTasks } }
 		);
 	}
 
