@@ -10,7 +10,7 @@ const editTypeHandler = new Composer<IBotContext>();
 const resEditTypeHandler = new Composer<IBotContext>();
 
 const enterTaskIdHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Enter number/id of task📀");
+	await ctx.reply("Enter number of task📀");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -21,8 +21,8 @@ const enterTaskIdHandler = async (ctx: IBotContext) => {
 taskIdHandler.hears(taskIdRegex, async ctx => {
 	ctx.scene.session.taskId = extractTaskId(ctx.message.text);
 	const tasks = await dbService.readTasks(ctx.session.chatId);
-	if (!tasks.length) {
-		await ctx.reply("List of tasks is empty👀");
+	if (!tasks?.length) {
+		await ctx.reply("List is empty👀");
 		return ctx.scene.leave();
 	}
 
@@ -30,7 +30,7 @@ taskIdHandler.hears(taskIdRegex, async ctx => {
 		(task: any) => task.id === ctx.scene.session.taskId
 	);
 	if (!matchedTask) {
-		await ctx.reply("Task does not exist🤷🏼");
+		await ctx.reply("Task is not found🤷🏼");
 		return ctx.wizard.selectStep(1);
 	}
 
@@ -41,7 +41,7 @@ taskIdHandler.hears(taskIdRegex, async ctx => {
 });
 taskIdHandler.on("text", async ctx => {
 	if (!taskIdRegex.test(ctx.message.text)) {
-		await ctx.reply("Task ID is invalid❌!\nEnter task ID without leading 0");
+		await ctx.reply("Task number is incorrect❌\nEnter valid task number🔁");
 	}
 });
 
@@ -55,7 +55,7 @@ const enterEditTypeHandler = async (ctx: IBotContext) => {
 };
 
 editTypeHandler.action(taskEditActions.status.action, async ctx => {
-	await ctx.editMessageText("Write status in format *done/still*", {
+	await ctx.editMessageText("Write status in format *done/todo*⬇️", {
 		parse_mode: "MarkdownV2",
 	});
 
@@ -65,7 +65,7 @@ editTypeHandler.action(taskEditActions.status.action, async ctx => {
 	}
 });
 editTypeHandler.action(taskEditActions.title.action, async ctx => {
-	await ctx.editMessageText("Write title for your task✍🏼");
+	await ctx.editMessageText("Write new title✍🏼");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -73,13 +73,13 @@ editTypeHandler.action(taskEditActions.title.action, async ctx => {
 	}
 });
 
-resEditTypeHandler.hears(/done|still/gm, async ctx => {
+resEditTypeHandler.hears(/done|todo/gm, async ctx => {
 	await dbService.editTask(ctx.session.chatId, {
 		id: ctx.scene.session.taskId,
 		editType: "status",
 		content: ctx.message.text === "done",
 	});
-	await ctx.replyWithMarkdownV2("Task *status* is changed✅");
+	await ctx.replyWithMarkdownV2("Task *status* is changed☑️");
 	ctx.scene.leave();
 });
 resEditTypeHandler.hears(taskTitleRegex, async ctx => {
@@ -88,7 +88,7 @@ resEditTypeHandler.hears(taskTitleRegex, async ctx => {
 		editType: "title",
 		content: ctx.message.text,
 	});
-	await ctx.replyWithMarkdownV2("Task *title* is changed✅");
+	await ctx.replyWithMarkdownV2("Task *title* is changed☑️");
 	ctx.scene.leave();
 });
 

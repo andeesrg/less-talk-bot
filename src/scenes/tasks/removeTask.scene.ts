@@ -18,8 +18,8 @@ const enterTaskIdHandler = async (ctx: IBotContext) => {
 taskIdHandler.hears(taskIdRegex, async ctx => {
 	ctx.scene.session.taskId = extractTaskId(ctx.message.text);
 	const tasks = await dbService.readTasks(ctx.session.chatId);
-	if (!tasks.length) {
-		await ctx.reply("List of tasks is empty👀");
+	if (!tasks?.length) {
+		await ctx.reply("List is empty👀");
 		return ctx.scene.leave();
 	}
 
@@ -38,13 +38,13 @@ taskIdHandler.hears(taskIdRegex, async ctx => {
 });
 taskIdHandler.on("text", async ctx => {
 	if (!taskIdRegex.test(ctx.message.text)) {
-		await ctx.reply("Task ID is invalid❌!\nEnter task ID without leading 0");
+		await ctx.reply("Task number is incorrect❌\nEnter valid task number🔁");
 	}
 });
 
 const removeTaskHandler = async (ctx: IBotContext) => {
 	await dbService.removeTask(ctx.session.chatId, ctx.scene.session.taskId);
-	await ctx.reply("Task is removed✅!");
+	await ctx.reply("Task is removed🧹!");
 	ctx.scene.leave();
 };
 
