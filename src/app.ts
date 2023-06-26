@@ -26,16 +26,10 @@ import LocalSession from "telegraf-session-local";
 class Bot {
 	bot: Telegraf<IBotContext>;
 	commands: Command[] = [];
-	stage = new Scenes.Stage<IBotContext>([
-		weather,
-		cat,
-		dog,
-		tasks,
-		createTask,
-		readTasks,
-		editTask,
-		removeTask,
-	]);
+	stage = new Scenes.Stage<IBotContext>(
+		[weather, cat, dog, tasks, createTask, readTasks, editTask, removeTask],
+		{ ttl: 40 }
+	);
 
 	constructor(private readonly configService: IConfigService) {
 		this.bot = new Telegraf<IBotContext>(this.configService.get("BOT_TOKEN"));
