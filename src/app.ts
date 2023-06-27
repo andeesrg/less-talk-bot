@@ -2,18 +2,24 @@ import {
 	CatCommand,
 	Command,
 	DogCommand,
+	GuidanceCommand,
 	HelpCommand,
 	StartCommand,
 	WeatherCommand,
 } from "@commands";
 import { ConfigService, IConfigService } from "@config";
 import { tasks as taskActions, unsub } from "@constants/actions";
+import { commands } from "@constants/commands";
 import { IBotContext } from "@context";
 import {
+	attractions,
 	cat,
 	createTask,
 	dog,
 	editTask,
+	events,
+	food,
+	guidance,
 	readTasks,
 	removeTask,
 	tasks,
@@ -38,6 +44,10 @@ class Bot {
 			editTask,
 			removeTask,
 			unsubscribe,
+			guidance,
+			attractions,
+			events,
+			food,
 		],
 		{ ttl: 120 }
 	);
@@ -52,18 +62,23 @@ class Bot {
 		this.bot.use(this.stage.middleware());
 	}
 
-	init() {
+	async init() {
 		this.commands = [
 			new StartCommand(this.bot),
 			new HelpCommand(this.bot),
 			new WeatherCommand(this.bot),
 			new CatCommand(this.bot),
 			new DogCommand(this.bot),
+			new GuidanceCommand(this.bot),
 		];
 		for (const command of this.commands) {
 			command.handle();
 		}
-		this.bot.launch();
+		await this.bot.launch();
+	}
+
+	initCommands() {
+		this.bot.telegram.setMyCommands(commands);
 	}
 
 	initTasksListener() {
@@ -84,7 +99,8 @@ const bot = new Bot(new ConfigService());
 
 (async () => {
 	await dbService.connectToDB();
-	bot.init();
+	bot.initCommands();
 	bot.initTasksListener();
 	bot.initUnsubListener();
+	bot.init();
 })();
