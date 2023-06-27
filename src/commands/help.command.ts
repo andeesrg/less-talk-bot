@@ -12,8 +12,7 @@ export class HelpCommand extends Command {
 			ctx.reply(
 				`Here's the list of supported commands⬇️\n\n${commands
 					.map(
-						({ name, description, emoji }) =>
-							`${name} - ${description}${emoji}\n`
+						({ command, description }) => `${command} - ${description}\n`
 					)
 					.join("")}`
 			);

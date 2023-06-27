@@ -1,5 +1,5 @@
 import { ConfigService } from "@config";
-import { formWeatherData, formWeatherUrl } from "@helpers";
+import { formWeatherUrl, transformWeatherData } from "@helpers";
 import axios from "axios";
 import { geocodingService } from "./geocoding.service";
 
@@ -14,7 +14,7 @@ class WeatherService {
 			this._apiKey
 		);
 		const { data } = await axios.get(formWeatherUrl(geoData, this._apiKey));
-		return formWeatherData(location, data);
+		return transformWeatherData(location, data);
 	}
 }
 
