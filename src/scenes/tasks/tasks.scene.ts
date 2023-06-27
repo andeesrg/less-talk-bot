@@ -1,22 +1,22 @@
-import { taskActions } from "@constants";
+import { tasks as taskActions } from "@constants";
 import { IBotContext } from "@context";
 import { Composer, Scenes } from "telegraf";
 
 const taskHandler = new Composer<IBotContext>();
 
-taskHandler.hears(taskActions.readTasks.action, async ctx => {
+taskHandler.hears(taskActions.read.action, async ctx => {
 	ctx.scene.enter("readTasks");
 });
 
-taskHandler.hears(taskActions.createTask.action, ctx =>
+taskHandler.hears(taskActions.create.action, ctx =>
 	ctx.scene.enter("createTask")
 );
 
-taskHandler.hears(taskActions.editTask.action, async ctx => {
+taskHandler.hears(taskActions.edit.action, async ctx => {
 	ctx.scene.enter("editTask");
 });
 
-taskHandler.hears(taskActions.removeTask.action, async ctx => {
+taskHandler.hears(taskActions.remove.action, async ctx => {
 	ctx.scene.enter("removeTask");
 });
 

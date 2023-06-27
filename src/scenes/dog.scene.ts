@@ -11,7 +11,7 @@ const requestPicHandler = async (ctx: IBotContext) => {
 	} catch (e) {
 		return "Oops the image was not found🙁";
 	}
-	return await ctx.scene.leave();
+	return ctx.scene.leave();
 };
 
 export const dog = new Scenes.WizardScene<IBotContext>(
