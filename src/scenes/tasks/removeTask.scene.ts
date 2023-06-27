@@ -45,7 +45,7 @@ taskIdHandler.on("text", async ctx => {
 const removeTaskHandler = async (ctx: IBotContext) => {
 	await dbService.removeTask(ctx.session.chatId, ctx.scene.session.taskId);
 	await ctx.reply("Task is removed🧹");
-	ctx.scene.leave();
+	return ctx.scene.leave();
 };
 
 export const removeTask = new Scenes.WizardScene<IBotContext>(

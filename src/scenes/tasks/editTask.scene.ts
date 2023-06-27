@@ -1,5 +1,5 @@
 import { taskEditButtons } from "@buttons";
-import { taskEditActions, taskIdRegex, taskTitleRegex } from "@constants";
+import { taskEdit, taskIdRegex, taskTitleRegex } from "@constants";
 import { IBotContext } from "@context";
 import { extractTaskId } from "@helpers/extract";
 import { dbService } from "@services";
@@ -54,7 +54,7 @@ const enterEditTypeHandler = async (ctx: IBotContext) => {
 	}
 };
 
-editTypeHandler.action(taskEditActions.status.action, async ctx => {
+editTypeHandler.action(taskEdit.status.action, async ctx => {
 	await ctx.editMessageText("Write status in format *done/todo*⬇️", {
 		parse_mode: "MarkdownV2",
 	});
@@ -64,7 +64,7 @@ editTypeHandler.action(taskEditActions.status.action, async ctx => {
 		return ctx.wizard.step(ctx, async () => {});
 	}
 });
-editTypeHandler.action(taskEditActions.title.action, async ctx => {
+editTypeHandler.action(taskEdit.title.action, async ctx => {
 	await ctx.editMessageText("Write new title✍🏼");
 
 	ctx.wizard.next();
@@ -79,8 +79,8 @@ resEditTypeHandler.hears(/done|todo/gm, async ctx => {
 		editType: "status",
 		content: ctx.message.text === "done",
 	});
-	await ctx.replyWithMarkdownV2("Task *status* is changed☑️");
-	ctx.scene.leave();
+	await ctx.replyWithMarkdownV2("Task *status* is changed✅");
+	return ctx.scene.leave();
 });
 resEditTypeHandler.hears(taskTitleRegex, async ctx => {
 	await dbService.editTask(ctx.session.chatId, {
@@ -88,8 +88,8 @@ resEditTypeHandler.hears(taskTitleRegex, async ctx => {
 		editType: "title",
 		content: ctx.message.text,
 	});
-	await ctx.replyWithMarkdownV2("Task *title* is changed☑️");
-	ctx.scene.leave();
+	await ctx.replyWithMarkdownV2("Task *title* is changed✅");
+	return ctx.scene.leave();
 });
 
 export const editTask = new Scenes.WizardScene<IBotContext>(

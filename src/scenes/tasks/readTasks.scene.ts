@@ -11,7 +11,7 @@ const requestTasksHandler = async (ctx: IBotContext) => {
 		return ctx.scene.leave();
 	}
 	await ctx.reply(formTasks(tasks));
-	ctx.scene.leave();
+	return ctx.scene.leave();
 };
 
 export const readTasks = new Scenes.WizardScene<IBotContext>(

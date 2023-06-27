@@ -16,8 +16,13 @@ const enterTaskHandler = async (ctx: IBotContext) => {
 
 taskTitleHandler.hears(taskTitleRegex, async ctx => {
 	await dbService.createTask(ctx.session.chatId, ctx.message.text);
-	await ctx.reply(`Task is added☑️`);
-	ctx.scene.leave();
+	await ctx.reply(`Task is added✅`);
+	return ctx.scene.leave();
+});
+taskTitleHandler.on("text", async ctx => {
+	if (!taskTitleRegex.test(ctx.message.text)) {
+		await ctx.reply("Title must be at least 4 characters long!");
+	}
 });
 
 export const createTask = new Scenes.WizardScene<IBotContext>(
