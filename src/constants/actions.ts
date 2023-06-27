@@ -60,3 +60,18 @@ export const taskEdit = {
 		action: "editStatus",
 	},
 };
+
+export const guid = {
+	attractions: {
+		text: "Attractions🏙️",
+		action: "attractions",
+	},
+	events: {
+		text: "Events🛜",
+		action: "events",
+	},
+	food: {
+		text: "Food🍕",
+		action: "food",
+	},
+};
