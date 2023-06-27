@@ -15,10 +15,10 @@ class SessionService {
 		const currSession = sessions.find(
 			session => session.id === `${chatId}:${chatId}`
 		);
-		const { chatId, userLocation, userSubTime } = currSession.data;
+		const { chatId, userSubLocation, userSubTime } = currSession.data;
 		return JSON.stringify({
 			chatId,
-			userLocation,
+			userSubLocation,
 			userSubTime,
 		});
 	}
