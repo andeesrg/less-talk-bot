@@ -1,27 +1,26 @@
 export const commands = [
 	{
-		name: '/start',
-		description: 'Start the conversation',
-		emoji: '👋🏼',
+		command: "/start",
+		description: "Start the conversation👋🏼",
 	},
 	{
-		name: '/help',
-		description: 'List of supported commands',
-		emoji: '🗒️',
+		command: "/help",
+		description: "List of supported commands🗒️",
 	},
 	{
-		name: '/weather',
-		description: 'Get the current weather',
-		emoji: '☁️',
+		command: "/weather",
+		description: "Get the current weather☁️",
 	},
 	{
-		name: '/cat',
-		description: 'Get random cat picture',
-		emoji: '🐈',
+		command: "/guidance",
+		description: "Find out where to go🏙️",
 	},
 	{
-		name: '/dog',
-		description: 'Get random dog picture',
-		emoji: '🐕',
+		command: "/cat",
+		description: "Get random cat picture🐈",
+	},
+	{
+		command: "/dog",
+		description: "Get random dog picture🐕",
 	},
 ];
