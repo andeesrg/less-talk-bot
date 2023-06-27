@@ -1,5 +1,5 @@
 import { ConfigService } from "@config";
-import { convertToCelcius, formWeatherUrl } from "@helpers";
+import { formWeatherData, formWeatherUrl } from "@helpers";
 import axios from "axios";
 import { geocodingService } from "./geocoding.service";
 
@@ -14,22 +14,7 @@ class WeatherService {
 			this._apiKey
 		);
 		const { data } = await axios.get(formWeatherUrl(geoData, this._apiKey));
-		const transformedData = await this.#transformData({
-			...data.main,
-			city: geoData.name,
-		});
-		return transformedData;
-	}
-
-	async #transformData(data) {
-		return {
-			City: data.city,
-			Temperature: convertToCelcius(data.temp),
-			Feels: convertToCelcius(data.feels_like),
-			Min: convertToCelcius(data.temp_min),
-			Max: convertToCelcius(data.temp_max),
-			Humidity: data.humidity + "%",
-		};
+		return formWeatherData(location, data);
 	}
 }
 
