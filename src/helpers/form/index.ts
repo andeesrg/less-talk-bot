@@ -1,5 +1,5 @@
+export { formAttractions } from "./formAttractions";
 export { formTasks } from "./formTasks";
-export { formGeocodingUrl, formWeatherUrl } from "./formUrl";
-export { formWeatherData } from "./formWeatherData";
+export * from "./formUrl";
 export { formWeatherForecast } from "./formWeatherForecast";
 
