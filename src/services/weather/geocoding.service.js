@@ -9,8 +9,8 @@ class GeocodingService {
 	}
 
 	#extractData(data) {
-		const { name, lat, lon } = data[0];
-		return { name, lat, lon };
+		const { lat, lon } = data[0];
+		return { lat, lon };
 	}
 }
 
