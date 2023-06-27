@@ -1,6 +1,7 @@
 import {
 	confirmTime,
 	editTime,
+	guid,
 	nonSub,
 	sub,
 	subCity,
@@ -49,3 +50,15 @@ export const taskEditButtons = () =>
 		Markup.button.callback(taskEdit.title.text, taskEdit.title.action),
 		Markup.button.callback(taskEdit.status.text, taskEdit.status.action),
 	]);
+
+export const guidButtons = () =>
+	Markup.inlineKeyboard(
+		[
+			Markup.button.callback(guid.attractions.text, guid.attractions.action),
+			Markup.button.callback(guid.events.text, guid.events.action),
+			Markup.button.callback(guid.food.text, guid.food.action),
+		],
+		{
+			columns: 2,
+		}
+	).resize();
