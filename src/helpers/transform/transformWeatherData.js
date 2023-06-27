@@ -1,7 +1,7 @@
 import { convertToCelcius } from "@helpers/convert";
 import { capitalizeWord } from "@helpers/simple";
 
-export function formWeatherData(city, data) {
+export function transformWeatherData(city, data) {
 	const condition = data.weather[0].description;
 	const main = data.main;
 	const visibility = (data.visibility / 1000).toFixed(0);
