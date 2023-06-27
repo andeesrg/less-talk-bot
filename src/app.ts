@@ -7,7 +7,7 @@ import {
 	WeatherCommand,
 } from "@commands";
 import { ConfigService, IConfigService } from "@config";
-import { taskActions } from "@constants";
+import { tasks as taskActions, unsub } from "@constants/actions";
 import { IBotContext } from "@context";
 import {
 	cat,
@@ -17,6 +17,7 @@ import {
 	readTasks,
 	removeTask,
 	tasks,
+	unsubscribe,
 	weather,
 } from "@scenes";
 import { dbService } from "@services";
@@ -27,8 +28,18 @@ class Bot {
 	bot: Telegraf<IBotContext>;
 	commands: Command[] = [];
 	stage = new Scenes.Stage<IBotContext>(
-		[weather, cat, dog, tasks, createTask, readTasks, editTask, removeTask],
-		{ ttl: 40 }
+		[
+			weather,
+			cat,
+			dog,
+			tasks,
+			createTask,
+			readTasks,
+			editTask,
+			removeTask,
+			unsubscribe,
+		],
+		{ ttl: 120 }
 	);
 
 	constructor(private readonly configService: IConfigService) {
@@ -57,9 +68,15 @@ class Bot {
 
 	initTasksListener() {
 		const regex = new RegExp(
-			`${taskActions.createTask.action}|${taskActions.editTask.action}|${taskActions.readTasks.action}|${taskActions.removeTask.action}`
+			`${taskActions.create.action}|${taskActions.edit.action}|${taskActions.read.action}|${taskActions.remove.action}`
 		);
 		this.bot.hears(regex, ctx => ctx.scene.enter("tasks"));
+	}
+
+	initUnsubListener() {
+		this.bot.action(unsub.action, ctx => {
+			ctx.scene.enter("unsubscribe");
+		});
 	}
 }
 
@@ -69,4 +86,5 @@ const bot = new Bot(new ConfigService());
 	await dbService.connectToDB();
 	bot.init();
 	bot.initTasksListener();
+	bot.initUnsubListener();
 })();
