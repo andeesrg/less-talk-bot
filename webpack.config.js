@@ -31,6 +31,7 @@ module.exports = {
 		extensions: [".tsx", ".ts", ".js"],
 		alias: {
 			"@config": path.resolve(__dirname, "src/config/index"),
+			"@config/*": path.resolve(__dirname, "src/config/*"),
 			"@context": path.resolve(__dirname, "src/context/index"),
 			"@commands": path.resolve(__dirname, "src/commands/index"),
 			"@constants": path.resolve(__dirname, "src/constants/index"),
