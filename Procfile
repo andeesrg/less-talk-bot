@@ -1,1 +1,1 @@
-worker: npm run production
+worker: node build/index.js
