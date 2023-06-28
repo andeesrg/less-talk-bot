@@ -63,15 +63,15 @@ export const taskEdit = {
 
 export const guid = {
 	attractions: {
-		text: "Attractions🏙️",
+		text: "🌆 Attractions",
 		action: "attractions",
 	},
 	events: {
-		text: "Events🛜",
+		text: "🎃 Events",
 		action: "events",
 	},
 	food: {
-		text: "Food🍕",
+		text: "🍿 Food",
 		action: "food",
 	},
 };

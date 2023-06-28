@@ -19,10 +19,13 @@ cityHandler.hears(cityRegex, async ctx => {
 	const { data, error } = await guidanceService.getAttractions(
 		ctx.message.text
 	);
+
 	if (error) {
 		await ctx.reply(error);
 		return ctx.scene.leave();
 	}
+
+	await ctx.replyWithMarkdownV2("🔎*Looking for attractions\\.\\.\\.*");
 	await ctx.replyWithHTML(formAttractions(data));
 	return ctx.scene.leave();
 });

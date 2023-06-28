@@ -13,7 +13,7 @@ export const commands = [
 	},
 	{
 		command: "/guidance",
-		description: "Find out where to go🏙️",
+		description: "Find out where to go🌆",
 	},
 	{
 		command: "/cat",
