@@ -7,7 +7,8 @@ import {
 	StartCommand,
 	WeatherCommand,
 } from "@commands";
-import { ConfigService, IConfigService } from "@config";
+import { ConfigService } from "@config";
+import { IConfigService } from "@config/config.interface";
 import { tasks as taskActions, unsub } from "@constants/actions";
 import { commands } from "@constants/commands";
 import { IBotContext } from "@context";
@@ -74,6 +75,15 @@ class Bot {
 		for (const command of this.commands) {
 			command.handle();
 		}
+
+		process.once("SIGINT", () => {
+			this.bot.stop("SIGINT");
+		});
+
+		process.once("SIGTERM", () => {
+			this.bot.stop("SIGTERM");
+		});
+
 		await this.bot.launch();
 	}
 
