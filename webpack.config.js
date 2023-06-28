@@ -43,6 +43,9 @@ module.exports = {
 			"@scenes": path.resolve(__dirname, "src/scenes/index"),
 			"@buttons": path.resolve(__dirname, "src/buttons/index"),
 		},
+		fallback: {
+			fs: false,
+		},
 	},
 	experiments: {
 		outputModule: true,
