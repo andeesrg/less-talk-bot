@@ -9,11 +9,11 @@ class SessionService {
 		return this.extractData(data, chatId);
 	}
 
-	extractData(fileData, chatId) {
+	extractData(fileData, chaID) {
 		const parsed = JSON.parse(fileData);
 		const sessions = parsed.sessions;
 		const currSession = sessions.find(
-			session => session.id === `${chatId}:${chatId}`
+			session => session.id === `${chaID}:${chaID}`
 		);
 		const { chatId, userSubLocation, userSubTime } = currSession.data;
 		return JSON.stringify({
