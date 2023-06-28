@@ -8,7 +8,7 @@ export const formFoodPlaces = data => {
 		.slice(randomIdx, Math.min(randomIdx + 5, data.result.length))
 		.map(
 			({ name, rating }) =>
-				`🍿<b>Name</b>: <i>${name}</i>\n⭐️<b>Rating</b>: <i>${genRandomRate(
+				`🍿<b>Name</b>: <i>${name}</i>\n⭐️<b>Rate</b>: <i>${genRandomRate(
 					3,
 					8
 				)}/10</i>`
