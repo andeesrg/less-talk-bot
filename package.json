@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && tsc-alias",
-    "start": "npm run build && node ./dist/app.js",
+    "start": "tsc && tsc-alias",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
