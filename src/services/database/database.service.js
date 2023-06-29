@@ -28,7 +28,7 @@ class DatabaseService {
 
 	async readTasks(chatId) {
 		const user = await this.users.findOne({ chatId });
-		return user.tasks;
+		return user?.tasks;
 	}
 
 	async createTask(chatId, title) {
