@@ -28,7 +28,7 @@ module.exports = {
 		],
 	},
 	resolve: {
-		plugins: [new TsconfigPathsPlugin(), new Dotenv()],
+		plugins: [new Dotenv(), new TsconfigPathsPlugin()],
 		extensions: [".tsx", ".ts", ".js"],
 		alias: {
 			"@config": path.resolve(__dirname, "src/config/index"),
