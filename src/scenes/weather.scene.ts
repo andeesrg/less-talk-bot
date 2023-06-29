@@ -21,7 +21,7 @@ const timeHandler = new Composer<IBotContext>();
 const confirmTimeHandler = new Composer<IBotContext>();
 
 const enterCityHandler = async (ctx: IBotContext) => {
-	ctx.replyWithMarkdownV2("🏙️Enter city in format *City*");
+	await ctx.replyWithMarkdownV2("🏙️Enter city in format *City*");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -31,7 +31,7 @@ const enterCityHandler = async (ctx: IBotContext) => {
 
 cityHandler.hears(cityRegex, async ctx => {
 	ctx.scene.session.userLocation = extractCity(ctx.message.text);
-	ctx.replyWithMarkdownV2("☀️*Receiving weather\\.\\.\\.*");
+	await ctx.replyWithMarkdownV2("☀️*Receiving weather\\.\\.\\.*");
 	try {
 		const data = await weatherService.getCurrWeather(
 			ctx.scene.session.userLocation
