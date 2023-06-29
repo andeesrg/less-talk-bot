@@ -4,7 +4,7 @@ import { MongoClient } from "mongodb";
 
 class DatabaseService {
 	constructor() {
-		this._dbUrl = tokens.dbToken;
+		this._dbUrl = tokens.dbUrl;
 	}
 
 	async connectToDB() {

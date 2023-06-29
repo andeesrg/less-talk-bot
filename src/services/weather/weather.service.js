@@ -5,7 +5,7 @@ import { geocodingService } from "./geocoding.service";
 
 class WeatherService {
 	constructor() {
-		this._apiKey = tokens.weatherToken;
+		this._apiKey = tokens.weatherApiToken;
 	}
 
 	async getCurrWeather(location) {
