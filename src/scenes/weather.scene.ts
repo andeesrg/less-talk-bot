@@ -27,7 +27,7 @@ const enterCityHandler = async (ctx: IBotContext) => {
 
 cityHandler.hears(cityRegex, async ctx => {
 	ctx.scene.session.userLocation = extractCity(ctx.message.text);
-	await ctx.reply("☀️Receiving weather...");
+	await ctx.replyWithMarkdownV2("☀️*Receiving weather\\.\\.\\.*");
 	try {
 		const data = await weatherService.getCurrWeather(
 			ctx.scene.session.userLocation
