@@ -15,7 +15,6 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
 				exclude: /node_modules/,
 				use: {
 					loader: "babel-loader",
@@ -28,7 +27,6 @@ module.exports = {
 	},
 	resolve: {
 		plugins: [new TsconfigPathsPlugin()],
-		extensions: [".tsx", ".ts", ".js"],
 		alias: {
 			"@context": path.resolve(__dirname, "src/context/index"),
 			"@commands": path.resolve(__dirname, "src/commands/index"),
@@ -41,6 +39,7 @@ module.exports = {
 			"@scenes": path.resolve(__dirname, "src/scenes/index"),
 			"@buttons": path.resolve(__dirname, "src/buttons/index"),
 		},
+		extensions: [".ts", ".js"],
 		fallback: {
 			fs: false,
 		},
