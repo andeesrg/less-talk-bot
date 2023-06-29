@@ -25,5 +25,11 @@
 		"strict": true,
 		"skipLibCheck": true
 	},
-	"include": ["src", "src/**/*", "webpack.config.js"]
+	"include": [
+		"src",
+		"src/**/*",
+		"src/**/**/*",
+		"src/**/**/**/*",
+		"webpack.config.js"
+	]
 }
