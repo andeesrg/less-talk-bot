@@ -5,8 +5,8 @@ import { Composer, Scenes } from "telegraf";
 
 const taskTitleHandler = new Composer<IBotContext>();
 
-const enterTaskHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Enter task title✍🏼");
+const enterTaskHandler = (ctx: IBotContext) => {
+	ctx.reply("Enter task title✍🏼");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -16,12 +16,12 @@ const enterTaskHandler = async (ctx: IBotContext) => {
 
 taskTitleHandler.hears(taskTitleRegex, async ctx => {
 	await dbService.createTask(ctx.session.chatId, ctx.message.text);
-	await ctx.reply(`Task is added✅`);
+	ctx.reply(`Task is added✅`);
 	return ctx.scene.leave();
 });
 taskTitleHandler.on("text", async ctx => {
 	if (!taskTitleRegex.test(ctx.message.text)) {
-		await ctx.reply("Title must be at least 4 characters long!");
+		await ctx.reply("Title must be at least 5 characters long!");
 	}
 });
 
