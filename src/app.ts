@@ -7,11 +7,8 @@ import {
 	StartCommand,
 	WeatherCommand,
 } from "@commands";
-import { ConfigService } from "@config";
-import { tasks as taskActions, unsub } from "@constants/actions";
-import { commands } from "@constants/commands";
+import { commands, tasks as taskActions, tokens, unsub } from "@constants";
 import { IBotContext } from "@context";
-import { IConfigService } from "@interfaces";
 import {
 	attractions,
 	cat,
@@ -53,8 +50,8 @@ class Bot {
 		{ ttl: 120 }
 	);
 
-	constructor(private readonly configService: IConfigService) {
-		this.bot = new Telegraf<IBotContext>(this.configService.get("BOT_TOKEN"));
+	constructor() {
+		this.bot = new Telegraf<IBotContext>(tokens.botToken);
 		this.bot.use(
 			new LocalSession<IBotContext>({
 				database: "sessions.json",
@@ -105,7 +102,7 @@ class Bot {
 	}
 }
 
-const bot = new Bot(new ConfigService());
+const bot = new Bot();
 
 (async () => {
 	await dbService.connectToDB();

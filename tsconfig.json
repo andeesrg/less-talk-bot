@@ -7,7 +7,6 @@
 		"paths": {
 			"@config": ["config"],
 			"@config/*": ["config/*"],
-			"@interfaces": ["interfaces"],
 			"@context": ["context"],
 			"@commands": ["commands"],
 			"@constants": ["constants"],

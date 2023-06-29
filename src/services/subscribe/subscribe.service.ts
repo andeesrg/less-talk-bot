@@ -1,5 +1,5 @@
 import { unsubButton } from "@buttons";
-import { ConfigService } from "@config";
+import { tokens } from "@constants";
 import { IBotContext } from "@context";
 import { formWeatherForecast } from "@helpers";
 import { weatherService } from "@services";
@@ -12,9 +12,7 @@ export class SubscribeService {
 	private static instance: SubscribeService;
 
 	constructor(private chatIdTerm?: number) {
-		this.bot = new Telegraf<IBotContext>(
-			new ConfigService().get("BOT_TOKEN")
-		);
+		this.bot = new Telegraf<IBotContext>(tokens.botToken);
 	}
 
 	async deactivateSub() {
@@ -29,12 +27,14 @@ export class SubscribeService {
 		} = JSON.parse(subParams);
 		const currTask = cron.schedule(`${mins} ${hours} * * *`, async () => {
 			const data = await weatherService.getCurrWeather(userSubLocation);
-			new Telegraf(
-				new ConfigService().get("BOT_TOKEN")
-			).telegram.sendMessage(chatId, formWeatherForecast(data), {
-				parse_mode: "MarkdownV2",
-				...unsubButton(),
-			});
+			new Telegraf(tokens.botToken).telegram.sendMessage(
+				chatId,
+				formWeatherForecast(data),
+				{
+					parse_mode: "MarkdownV2",
+					...unsubButton(),
+				}
+			);
 		});
 		currTask.start();
 		this.currTask = currTask;

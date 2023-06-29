@@ -1,7 +1,6 @@
-import { IConfigService } from "@interfaces";
 import { DotenvParseOutput, configDotenv } from "dotenv";
 
-export class ConfigService implements IConfigService {
+export class ConfigService {
 	private config: DotenvParseOutput;
 	constructor() {
 		const { error, parsed } = configDotenv();

@@ -1,4 +1,4 @@
-import { ConfigService } from "@config";
+import { tokens } from "@constants";
 import {
 	formAttractionsApiUrl,
 	formCityGeoUrl,
@@ -11,8 +11,8 @@ import axios from "axios";
 
 class GuidanceService {
 	constructor() {
-		this._opentripApiKey = new ConfigService().get("OPENTRIP_API_KEY");
-		this._eventsApiKey = new ConfigService().get("EVENTS_API_KEY");
+		this._opentripApiKey = tokens.openTripToken;
+		this._eventsApiKey = tokens.eventsApiToken;
 	}
 
 	async getAttractions(city) {

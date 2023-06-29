@@ -1,10 +1,10 @@
-import { ConfigService } from "@config";
+import { tokens } from "@constants";
 import { orderTasksId } from "@helpers";
 import { MongoClient } from "mongodb";
 
 class DatabaseService {
 	constructor() {
-		this._dbUrl = new ConfigService().get("DB_URL");
+		this._dbUrl = tokens.dbToken;
 	}
 
 	async connectToDB() {

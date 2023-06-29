@@ -1,11 +1,11 @@
-import { ConfigService } from "@config";
+import { tokens } from "@constants";
 import { formWeatherUrl, transformWeatherData } from "@helpers";
 import axios from "axios";
 import { geocodingService } from "./geocoding.service";
 
 class WeatherService {
 	constructor() {
-		this._apiKey = new ConfigService().get("WEATHER_API_KEY");
+		this._apiKey = tokens.weatherToken;
 	}
 
 	async getCurrWeather(location) {

@@ -32,7 +32,6 @@ module.exports = {
 		alias: {
 			"@config": path.resolve(__dirname, "src/config/index"),
 			"@config/*": path.resolve(__dirname, "src/config/*"),
-			"@interfaces": path.resolve(__dirname, "src/interfaces/index"),
 			"@context": path.resolve(__dirname, "src/context/index"),
 			"@commands": path.resolve(__dirname, "src/commands/index"),
 			"@constants": path.resolve(__dirname, "src/constants/index"),
