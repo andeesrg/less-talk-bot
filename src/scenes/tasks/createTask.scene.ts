@@ -5,8 +5,8 @@ import { Composer, Scenes } from "telegraf";
 
 const taskTitleHandler = new Composer<IBotContext>();
 
-const enterTaskHandler = (ctx: IBotContext) => {
-	ctx.reply("Enter task title✍🏼");
+const enterTaskHandler = async (ctx: IBotContext) => {
+	await ctx.reply("Enter task title✍🏼");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -16,7 +16,7 @@ const enterTaskHandler = (ctx: IBotContext) => {
 
 taskTitleHandler.hears(taskTitleRegex, async ctx => {
 	await dbService.createTask(ctx.session.chatId, ctx.message.text);
-	ctx.reply(`Task is added✅`);
+	await ctx.reply(`Task is added✅`);
 	return ctx.scene.leave();
 });
 taskTitleHandler.on("text", async ctx => {
