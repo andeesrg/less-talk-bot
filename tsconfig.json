@@ -5,8 +5,6 @@
 		"moduleResolution": "node",
 		"baseUrl": "./src",
 		"paths": {
-			"@config": ["config"],
-			"@config/*": ["config/*"],
 			"@context": ["context"],
 			"@commands": ["commands"],
 			"@constants": ["constants"],
