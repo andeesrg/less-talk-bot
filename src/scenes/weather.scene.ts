@@ -22,12 +22,16 @@ const confirmTimeHandler = new Composer<IBotContext>();
 
 const enterCityHandler = async (ctx: IBotContext) => {
 	ctx.replyWithMarkdownV2("🏙️Enter city in format *City*");
-	return ctx.wizard.next();
+
+	ctx.wizard.next();
+	if (typeof ctx.wizard.step === "function") {
+		return ctx.wizard.step(ctx, async () => {});
+	}
 };
 
 cityHandler.hears(cityRegex, async ctx => {
 	ctx.scene.session.userLocation = extractCity(ctx.message.text);
-	await ctx.replyWithMarkdownV2("☀️*Receiving weather\\.\\.\\.*");
+	ctx.replyWithMarkdownV2("☀️*Receiving weather\\.\\.\\.*");
 	try {
 		const data = await weatherService.getCurrWeather(
 			ctx.scene.session.userLocation
@@ -155,7 +159,7 @@ confirmTimeHandler.action(confirmTime.action, async ctx => {
 	const subscribe = SubscribeService.getInstance(ctx.session.chatId);
 	const subParams = sessionService.readData(ctx.session.chatId);
 	await subscribe.activateSub(subParams);
-	await ctx.reply(
+	ctx.reply(
 		`👀You've subscribed on daily weather forecast in ${ctx.session.userSubLocation}!`
 	);
 	return ctx.scene.leave();

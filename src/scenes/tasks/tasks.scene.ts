@@ -4,7 +4,7 @@ import { Composer, Scenes } from "telegraf";
 
 const taskHandler = new Composer<IBotContext>();
 
-taskHandler.hears(taskActions.read.action, async ctx => {
+taskHandler.hears(taskActions.read.action, ctx => {
 	ctx.scene.enter("readTasks");
 });
 
@@ -12,11 +12,11 @@ taskHandler.hears(taskActions.create.action, ctx =>
 	ctx.scene.enter("createTask")
 );
 
-taskHandler.hears(taskActions.edit.action, async ctx => {
+taskHandler.hears(taskActions.edit.action, ctx => {
 	ctx.scene.enter("editTask");
 });
 
-taskHandler.hears(taskActions.remove.action, async ctx => {
+taskHandler.hears(taskActions.remove.action, ctx => {
 	ctx.scene.enter("removeTask");
 });
 

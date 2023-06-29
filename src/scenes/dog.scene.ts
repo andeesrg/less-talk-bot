@@ -4,9 +4,7 @@ import axios from "axios";
 import { Scenes } from "telegraf";
 
 const requestPicHandler = async (ctx: IBotContext) => {
-	await ctx.replyWithMarkdownV2(
-		"🔎*Looking for a random dog picture\\.\\.\\.🐕*"
-	);
+	ctx.replyWithMarkdownV2("🔎*Looking for a random dog picture\\.\\.\\.🐕*");
 	try {
 		const { data } = await axios.get(dogApiUrl);
 		await ctx.replyWithPhoto({ url: data.message });

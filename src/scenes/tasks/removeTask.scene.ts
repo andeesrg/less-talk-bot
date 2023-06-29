@@ -6,8 +6,8 @@ import { Composer, Scenes } from "telegraf";
 
 const taskIdHandler = new Composer<IBotContext>();
 
-const enterTaskIdHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Enter number of task📀");
+const enterTaskIdHandler = (ctx: IBotContext) => {
+	ctx.reply("Enter number of task📀");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -19,7 +19,7 @@ taskIdHandler.hears(taskIdRegex, async ctx => {
 	ctx.scene.session.taskId = extractTaskId(ctx.message.text);
 	const tasks = await dbService.readTasks(ctx.session.chatId);
 	if (!tasks?.length) {
-		await ctx.reply("List is empty👀");
+		ctx.reply("List is empty👀");
 		return ctx.scene.leave();
 	}
 
@@ -27,7 +27,7 @@ taskIdHandler.hears(taskIdRegex, async ctx => {
 		(task: any) => task.id === ctx.scene.session.taskId
 	);
 	if (!matchedTask) {
-		await ctx.reply("Task does not exist🤷🏼");
+		ctx.reply("Task does not exist🤷🏼");
 		return ctx.wizard.selectStep(1);
 	}
 
@@ -44,7 +44,7 @@ taskIdHandler.on("text", async ctx => {
 
 const removeTaskHandler = async (ctx: IBotContext) => {
 	await dbService.removeTask(ctx.session.chatId, ctx.scene.session.taskId);
-	await ctx.reply("Task is removed🧹");
+	ctx.reply("Task is removed🧹");
 	return ctx.scene.leave();
 };
 

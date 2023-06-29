@@ -7,9 +7,7 @@ const unsubHandler = async (ctx: IBotContext) => {
 	await subscribe.deactivateSub();
 	ctx.session.userSubLocation = null;
 	ctx.session.userSubTime = { hours: "", mins: "" };
-	await ctx.reply(
-		"You've succesfully unsubscribed from daily weather forecast✅"
-	);
+	ctx.reply("You've succesfully unsubscribed from daily weather forecast✅");
 	return ctx.scene.leave();
 };
 
