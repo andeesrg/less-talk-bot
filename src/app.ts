@@ -8,10 +8,10 @@ import {
 	WeatherCommand,
 } from "@commands";
 import { ConfigService } from "@config";
-import { IConfigService } from "@config/config.interface";
 import { tasks as taskActions, unsub } from "@constants/actions";
 import { commands } from "@constants/commands";
 import { IBotContext } from "@context";
+import { IConfigService } from "@interfaces";
 import {
 	attractions,
 	cat,
