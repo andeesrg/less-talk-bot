@@ -6,8 +6,8 @@ import { Composer, Scenes } from "telegraf";
 
 const cityHandler = new Composer<IBotContext>();
 
-const enterCityHandler = async (ctx: IBotContext) => {
-	await ctx.replyWithMarkdownV2("Enter city in format *City*");
+const enterCityHandler = (ctx: IBotContext) => {
+	ctx.replyWithMarkdownV2("🏙️Enter city in format *City*");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -16,6 +16,7 @@ const enterCityHandler = async (ctx: IBotContext) => {
 };
 
 cityHandler.hears(cityRegex, async ctx => {
+	ctx.replyWithMarkdownV2("🎃*Gathering events\\.\\.\\.*");
 	const { data, error } = await guidanceService.getEvents(ctx.message.text);
 
 	if (error) {
@@ -23,9 +24,7 @@ cityHandler.hears(cityRegex, async ctx => {
 		return ctx.scene.leave();
 	}
 
-	await ctx.replyWithMarkdownV2("⌛️*Gathering events data\\.\\.\\.*");
 	await ctx.replyWithHTML(formEvents(data));
-
 	return ctx.scene.leave();
 });
 cityHandler.on("text", async ctx => {
