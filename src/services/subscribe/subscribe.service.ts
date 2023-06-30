@@ -25,7 +25,8 @@ export class SubscribeService {
 		time: { hours: string; mins: string }
 	) {
 		const { hours, mins } = time;
-		const currTask = cron.schedule(`${mins} ${hours} * * *`, async () => {
+		const utcTime = +hours - 3;
+		const currTask = cron.schedule(`${mins} ${utcTime} * * *`, async () => {
 			const data = await weatherService.getCurrWeather(location);
 			new Telegraf(tokens.botToken).telegram.sendMessage(
 				chatId,
