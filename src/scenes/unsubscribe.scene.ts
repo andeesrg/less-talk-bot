@@ -5,7 +5,7 @@ import { Scenes } from "telegraf";
 const unsubHandler = async (ctx: IBotContext) => {
 	const subscribe = SubscribeService.getInstance();
 	await subscribe.deactivateSub();
-	ctx.session.userSubLocation = null;
+	ctx.session.userSubLocation = "";
 	ctx.session.userSubTime = { hours: "", mins: "" };
 	await ctx.reply(
 		"You've succesfully unsubscribed from daily weather forecast✅"
