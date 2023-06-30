@@ -7,8 +7,8 @@ interface MySceneSession extends Scenes.WizardSessionData {
 
 interface MySession extends Scenes.WizardSession<MySceneSession> {
 	chatId: number;
-	userSubLocation?: string | null;
-	userSubTime?: { hours: string; mins: string } | null;
+	userSubLocation: string;
+	userSubTime: { hours: string; mins: string };
 }
 
 export interface IBotContext extends Context {
