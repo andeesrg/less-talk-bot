@@ -25,7 +25,8 @@ import {
 	weather,
 } from "@scenes";
 import { dbService } from "@services";
-import { Scenes, Telegraf, session } from "telegraf";
+import { Scenes, Telegraf } from "telegraf";
+import LocalSession from "telegraf-session-local";
 
 class Bot {
 	bot: Telegraf<IBotContext>;
@@ -51,7 +52,11 @@ class Bot {
 
 	constructor() {
 		this.bot = new Telegraf<IBotContext>(tokens.botToken);
-		this.bot.use(session()).middleware();
+		this.bot.use(
+			new LocalSession<IBotContext>({
+				database: "sessions.json",
+			}).middleware()
+		);
 		this.bot.use(this.stage.middleware());
 	}
 
