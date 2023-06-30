@@ -26,10 +26,11 @@ export class SubscribeService {
 	) {
 		const { hours, mins } = time;
 		const utcTime = +hours - 3;
-		const currTask = cron.schedule(`10 9 * * *`, async () => {
+		console.log(`${mins} ${utcTime}, ${chatId}, ${location}`);
+		const currTask = cron.schedule(`${mins} ${utcTime} * * *`, async () => {
 			const data = await weatherService.getCurrWeather(location);
 			new Telegraf(tokens.botToken).telegram.sendMessage(
-				884594106,
+				chatId,
 				formWeatherForecast(data),
 				{
 					parse_mode: "MarkdownV2",
