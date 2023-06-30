@@ -2,7 +2,7 @@ import fs from "fs";
 
 class SessionService {
 	readData(chatId) {
-		const data = fs.readFileSync(`${__dirname}/../sessions.json`, "utf-8");
+		const data = fs.readFileSync(`${__dirname}sessions.json`, "utf-8");
 		return this.extractData(data, chatId);
 	}
 
