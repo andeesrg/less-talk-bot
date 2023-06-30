@@ -3,9 +3,7 @@ import { IBotContext } from "@context";
 import { Scenes } from "telegraf";
 
 const requestPicHandler = async (ctx: IBotContext) => {
-	await ctx.replyWithMarkdownV2(
-		"🔎*Looking for a random cat picture\\.\\.\\.🐈*"
-	);
+	await ctx.replyWithHTML("🔎<b>Looking for a random cat picture...</b>🐈");
 	try {
 		await ctx.replyWithPhoto({ url: catApiUrl });
 	} catch (e) {

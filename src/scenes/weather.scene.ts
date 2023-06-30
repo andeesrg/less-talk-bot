@@ -21,7 +21,7 @@ const timeHandler = new Composer<IBotContext>();
 const confirmTimeHandler = new Composer<IBotContext>();
 
 const enterCityHandler = async (ctx: IBotContext) => {
-	await ctx.replyWithMarkdownV2("🏙️Enter city in format *City*");
+	await ctx.replyWithHTML("🏙️Enter city in format <b>City</b>");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -31,12 +31,12 @@ const enterCityHandler = async (ctx: IBotContext) => {
 
 cityHandler.hears(cityRegex, async ctx => {
 	ctx.scene.session.userLocation = ctx.message.text;
-	await ctx.replyWithMarkdownV2("☀️*Receiving weather\\.\\.\\.*");
+	await ctx.replyWithHTML("☀️<b>Receiving weather...</b>");
 	try {
 		const data = await weatherService.getCurrWeather(
 			ctx.scene.session.userLocation
 		);
-		await ctx.replyWithMarkdownV2(formWeatherForecast(data));
+		await ctx.replyWithHTML(formWeatherForecast(data));
 	} catch {
 		await ctx.reply("Oops something went wrong🤕!Try again later");
 		return ctx.scene.leave();
@@ -49,8 +49,8 @@ cityHandler.hears(cityRegex, async ctx => {
 });
 cityHandler.on("text", async ctx => {
 	if (!cityRegex.test(ctx.message.text)) {
-		await ctx.replyWithMarkdownV2(
-			"*City* is invalid ❌\nEnter city in proper format *City*"
+		await ctx.replyWithHTML(
+			"<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>"
 		);
 	}
 });
@@ -114,15 +114,15 @@ newSubCityHandler.hears(cityRegex, async ctx => {
 });
 newSubCityHandler.on("text", async ctx => {
 	if (!cityRegex.test(ctx.message.text)) {
-		await ctx.replyWithMarkdownV2(
-			"*City* is invalid ❌\nEnter city in proper format *City*"
+		await ctx.replyWithHTML(
+			"<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>"
 		);
 	}
 });
 
 const enterTimeHandler = async (ctx: IBotContext) => {
-	await ctx.replyWithMarkdownV2(
-		`*Enter notification time*⌚️\n\nEnter time in format *h/hh:mm*\\(7:05\\)`
+	await ctx.replyWithHTML(
+		`<b>Enter notification time</b>⌚️\n\nEnter time in format <b>h/hh:mm</b>(7:05)`
 	);
 
 	ctx.wizard.next();
@@ -141,8 +141,8 @@ timeHandler.hears(timeRegex, async ctx => {
 });
 timeHandler.on("text", async ctx => {
 	if (!timeRegex.test(ctx.message.text)) {
-		await ctx.replyWithMarkdownV2(
-			"*Time* is invalid❌\\!\nEnter time in proper format\\!(e.g. 7:05)"
+		await ctx.replyWithHTML(
+			"<b>Time</b> is invalid❌\nEnter time in proper format!(e.g. 7:05)"
 		);
 	}
 });
@@ -171,7 +171,7 @@ confirmTimeHandler.action(confirmTime.action, async ctx => {
 	return ctx.scene.leave();
 });
 confirmTimeHandler.action(editTime.action, async ctx => {
-	await ctx.replyWithMarkdownV2("Enter time in format *h/hh:mm*⌚️");
+	await ctx.replyWithHTML("Enter time in format <b>h/hh:mm</b>⌚️");
 	return ctx.wizard.selectStep(7);
 });
 

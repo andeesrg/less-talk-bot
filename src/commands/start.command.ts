@@ -15,8 +15,8 @@ export class StartCommand extends Command {
 				ctx.message.chat.id,
 				ctx.message.from.first_name
 			);
-			await ctx.replyWithMarkdownV2(
-				`Hello *${userName}* and welcome to LessTalk Bot👋🏼\n\n_See what this bot can do,_ *use* /help`,
+			await ctx.replyWithHTML(
+				`Hello <b>${userName}</b> and welcome to LessTalkBot👋🏼\n\n<i>See what this bot can do</i>, <b>use</b> /help`,
 				tasksControlButtons()
 			);
 		});

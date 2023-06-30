@@ -80,7 +80,7 @@ resEditTypeHandler.hears(/done|todo/gm, async ctx => {
 		editType: "status",
 		content: ctx.message.text === "done",
 	});
-	await ctx.replyWithMarkdownV2("Task *status* is changed✅");
+	await ctx.replyWithHTML("Task <b>status</b> is changed✅");
 	return ctx.scene.leave();
 });
 resEditTypeHandler.hears(taskTitleRegex, async ctx => {
@@ -89,7 +89,7 @@ resEditTypeHandler.hears(taskTitleRegex, async ctx => {
 		editType: "title",
 		content: ctx.message.text,
 	});
-	await ctx.replyWithMarkdownV2("Task *title* is changed✅");
+	await ctx.replyWithHTML("Task <b>title</b> is changed✅");
 	return ctx.scene.leave();
 });
 

@@ -7,7 +7,7 @@ import { Composer, Scenes } from "telegraf";
 const cityHandler = new Composer<IBotContext>();
 
 const enterCityHandler = async (ctx: IBotContext) => {
-	await ctx.replyWithMarkdownV2("🌃Enter city in format *City*");
+	await ctx.replyWithHTML("🌃Enter city in format <b>City</b>");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -16,7 +16,7 @@ const enterCityHandler = async (ctx: IBotContext) => {
 };
 
 cityHandler.hears(cityRegex, async ctx => {
-	await ctx.replyWithMarkdownV2("🍟*Gathering eateries\\.\\.\\.*");
+	await ctx.replyWithHTML("🍟<b>Gathering eateries...</b>");
 	const { data, error } = await guidanceService.getFoodPlaces(
 		ctx.message.text
 	);
@@ -31,8 +31,8 @@ cityHandler.hears(cityRegex, async ctx => {
 });
 cityHandler.on("text", async ctx => {
 	if (!cityRegex.test(ctx.message.text)) {
-		await ctx.replyWithMarkdownV2(
-			"*City* is invalid ❌\nEnter city in proper format *City*"
+		await ctx.replyWithHTML(
+			"<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>"
 		);
 	}
 });

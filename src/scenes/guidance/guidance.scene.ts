@@ -6,8 +6,8 @@ import { Composer, Scenes } from "telegraf";
 const guidHandler = new Composer<IBotContext>();
 
 const enterGuidHandler = async (ctx: IBotContext) => {
-	await ctx.replyWithMarkdownV2(
-		"🤩Don't know where to go?\n*LessTalkBot* is gonna help you🌄",
+	await ctx.replyWithHTML(
+		"🤩Don't know where to go?\n<b>LessTalkBot</b> is gonna help you🌄",
 		guidButtons()
 	);
 
