@@ -10,7 +10,7 @@ import {
 } from "@constants";
 import { IBotContext } from "@context";
 import { extractCity, extractTime, formWeatherForecast } from "@helpers";
-import { SubscribeService, sessionService, weatherService } from "@services";
+import { SubscribeService, weatherService } from "@services";
 import { Composer, Scenes } from "telegraf";
 
 const cityHandler = new Composer<IBotContext>();
@@ -79,6 +79,8 @@ suggestSubCityHandler.action(sub.action, async ctx => {
 	}
 });
 suggestSubCityHandler.action(nonSub.action, async ctx => {
+	ctx.session.userSubLocation = "";
+	ctx.session.userSubTime = { hours: "", mins: "" };
 	await ctx.deleteMessage();
 	return ctx.scene.leave();
 });
@@ -157,8 +159,11 @@ const enterConfirmTimeHandler = async (ctx: IBotContext) => {
 confirmTimeHandler.action(confirmTime.action, async ctx => {
 	await ctx.deleteMessage();
 	const subscribe = SubscribeService.getInstance(ctx.session.chatId);
-	const subParams = sessionService.readData(ctx.session.chatId);
-	await subscribe.activateSub(subParams);
+	await subscribe.activateSub(
+		ctx.session.chatId,
+		ctx.session.userSubLocation,
+		ctx.session.userSubTime
+	);
 	await ctx.reply(
 		`👀You've subscribed on daily weather forecast in ${ctx.session.userSubLocation}!`
 	);
