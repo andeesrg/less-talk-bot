@@ -56,8 +56,8 @@ const enterEditTypeHandler = async (ctx: IBotContext) => {
 };
 
 editTypeHandler.action(taskEdit.status.action, async ctx => {
-	await ctx.editMessageText("Write status in format *done/todo*⬇️", {
-		parse_mode: "MarkdownV2",
+	await ctx.editMessageText("Write status in format <b>done/todo</b>⬇️", {
+		parse_mode: "HTML",
 	});
 
 	ctx.wizard.next();

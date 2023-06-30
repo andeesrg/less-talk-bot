@@ -94,8 +94,8 @@ subCityHandler.action(subCity.currCity.action, async ctx => {
 	}
 });
 subCityHandler.action(subCity.newCity.action, async ctx => {
-	await ctx.editMessageText("🏙️Enter city in format *City*", {
-		parse_mode: "MarkdownV2",
+	await ctx.editMessageText("🏙️Enter city in format <b>City</b>", {
+		parse_mode: "HTML",
 	});
 
 	ctx.wizard.next();
