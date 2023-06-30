@@ -10,10 +10,19 @@ const unsubHandler = async (ctx: IBotContext) => {
 	await ctx.reply(
 		"You've succesfully unsubscribed from daily weather forecast✅"
 	);
-	return ctx.scene.leave();
+
+	ctx.wizard.next();
+	if (typeof ctx.wizard.step === "function") {
+		return ctx.wizard.step(ctx, async () => {});
+	}
+};
+
+const leaveHandler = async (ctx: IBotContext) => {
+	return await ctx.scene.leave();
 };
 
 export const unsubscribe = new Scenes.WizardScene<IBotContext>(
 	"unsubscribe",
-	unsubHandler
+	unsubHandler,
+	leaveHandler
 );
