@@ -159,6 +159,7 @@ const enterConfirmTimeHandler = async (ctx: IBotContext) => {
 confirmTimeHandler.action(confirmTime.action, async ctx => {
 	await ctx.deleteMessage();
 	const subscribe = SubscribeService.getInstance(ctx.session.chatId);
+	await subscribe.deactivateSub();
 	await subscribe.activateSub(
 		ctx.session.chatId,
 		ctx.session.userSubLocation,
