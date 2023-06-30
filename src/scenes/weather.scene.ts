@@ -9,7 +9,7 @@ import {
 	timeRegex,
 } from "@constants";
 import { IBotContext } from "@context";
-import { extractCity, extractTime, formWeatherForecast } from "@helpers";
+import { extractTime, formWeatherForecast } from "@helpers";
 import { SubscribeService, weatherService } from "@services";
 import { Composer, Scenes } from "telegraf";
 
@@ -30,7 +30,7 @@ const enterCityHandler = async (ctx: IBotContext) => {
 };
 
 cityHandler.hears(cityRegex, async ctx => {
-	ctx.scene.session.userLocation = extractCity(ctx.message.text);
+	ctx.scene.session.userLocation = ctx.message.text;
 	await ctx.replyWithMarkdownV2("☀️*Receiving weather\\.\\.\\.*");
 	try {
 		const data = await weatherService.getCurrWeather(
