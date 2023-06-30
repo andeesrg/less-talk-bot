@@ -159,7 +159,7 @@ confirmTimeHandler.action(confirmTime.action, async ctx => {
 	const subscribe = SubscribeService.getInstance(ctx.session.chatId);
 	const subParams = sessionService.readData(ctx.session.chatId);
 	await subscribe.activateSub(subParams);
-	ctx.reply(
+	await ctx.reply(
 		`👀You've subscribed on daily weather forecast in ${ctx.session.userSubLocation}!`
 	);
 	return ctx.scene.leave();
