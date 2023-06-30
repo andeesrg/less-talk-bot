@@ -19,14 +19,14 @@ export class SubscribeService {
 		await this.currTask?.stop();
 	}
 
-	async activateSub(subParams: any) {
-		const {
-			userSubLocation,
-			userSubTime: { hours, mins },
-			chatId,
-		} = JSON.parse(subParams);
+	async activateSub(
+		chatId: number,
+		location: string,
+		time: { hours: string; mins: string }
+	) {
+		const { hours, mins } = time;
 		const currTask = cron.schedule(`${mins} ${hours} * * *`, async () => {
-			const data = await weatherService.getCurrWeather(userSubLocation);
+			const data = await weatherService.getCurrWeather(location);
 			new Telegraf(tokens.botToken).telegram.sendMessage(
 				chatId,
 				formWeatherForecast(data),
