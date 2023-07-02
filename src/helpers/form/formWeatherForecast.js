@@ -1,5 +1,3 @@
-import { capitalizeWord } from "@helpers/simple";
-
 export const formWeatherForecast = data => {
 	return `
    Here's your current weather in <b>${data.city}</b>🌤️\n\n${Object.entries(
@@ -9,3 +7,7 @@ export const formWeatherForecast = data => {
 		.join("")}
    `;
 };
+
+function capitalizeWord(str) {
+	return str[0].toUpperCase() + str.slice(1);
+}
