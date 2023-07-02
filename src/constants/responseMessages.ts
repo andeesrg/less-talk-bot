@@ -1,4 +1,6 @@
-export const badAttractions = "Oops attractions not found🤕";
-export const badFoodPlaces = "Oops food places not found🤕";
-export const badEvents = "Oops events not found🤕";
-export const badCity = "Oops city is not found🤕";
+export const notFound = {
+	city: "Oops city is not found🤕",
+	attractions: "Oops attractions not found🤕",
+	eateries: "Oops eateries not found🤕",
+	events: "Oops events not found🤕",
+};
