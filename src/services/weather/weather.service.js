@@ -9,12 +9,14 @@ class WeatherService {
 	}
 
 	async getCurrWeather(location) {
-		const geoData = await geocodingService.getCoordinates(
+		const { geoData, error } = await geocodingService.getCoordinates(
 			location,
 			this._apiKey
 		);
+		if (error) return { data: null, error };
 		const { data } = await axios.get(formWeatherUrl(geoData, this._apiKey));
-		return transformWeatherData(location, data);
+		const transformedData = transformWeatherData(geoData.name, data);
+		return { data: transformedData, error: null };
 	}
 }
 

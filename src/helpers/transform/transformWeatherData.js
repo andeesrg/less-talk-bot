@@ -1,5 +1,4 @@
 import { convertToCelcius } from "@helpers/convert";
-import { capitalizeWord } from "@helpers/simple";
 
 export function transformWeatherData(city, data) {
 	const condition = data.weather[0].description;
@@ -18,4 +17,8 @@ export function transformWeatherData(city, data) {
 		["wind speed"]: `${windSpeed} mps`,
 		humidity: main.humidity + "%",
 	};
+}
+
+function capitalizeWord(str) {
+	return str[0].toUpperCase() + str.slice(1);
 }

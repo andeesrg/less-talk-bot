@@ -1,5 +1,9 @@
 import { taskEditButtons } from "@buttons";
-import { taskEdit, taskIdRegex, taskTitleRegex } from "@constants";
+import {
+	taskEdit,
+	taskIdRegex,
+	taskTitleRegex
+} from "@constants";
 import { IBotContext } from "@context";
 import { extractTaskId } from "@helpers/extract";
 import { dbService } from "@services";
@@ -66,7 +70,7 @@ editTypeHandler.action(taskEdit.status.action, async ctx => {
 	}
 });
 editTypeHandler.action(taskEdit.title.action, async ctx => {
-	await ctx.editMessageText("Write new title✍🏼");
+	await ctx.editMessageText("Enter task title✍🏼");
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
