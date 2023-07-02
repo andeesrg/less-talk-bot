@@ -1,4 +1,4 @@
-import { badAttractions, badEvents, badFoodPlaces, tokens } from "@constants";
+import { notFound, tokens } from "@constants";
 import {
 	formAttractionsApiUrl,
 	formEventsApiUrl,
@@ -37,7 +37,7 @@ class GuidanceService {
 				error: null,
 			};
 		} catch {
-			return { data: null, error: badAttractions };
+			return { data: null, error: notFound.attractions };
 		}
 	}
 
@@ -59,7 +59,7 @@ class GuidanceService {
 				error: null,
 			};
 		} catch {
-			return { data: null, error: badFoodPlaces };
+			return { data: null, error: notFound.eateries };
 		}
 	}
 
@@ -82,7 +82,7 @@ class GuidanceService {
 		} catch (error) {
 			return {
 				data: null,
-				error: badEvents,
+				error: notFound.events,
 			};
 		}
 	}
