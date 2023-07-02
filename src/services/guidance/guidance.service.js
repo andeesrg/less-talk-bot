@@ -1,29 +1,39 @@
 import { badAttractions, badEvents, badFoodPlaces, tokens } from "@constants";
 import {
 	formAttractionsApiUrl,
-	formCityGeoUrl,
 	formEventsApiUrl,
 	formFoodApiUrl,
 	transformAttractionsData,
 	transformFoodData,
 } from "@helpers";
+import { geocodingService } from "@services/weather/geocoding.service";
 import axios from "axios";
 
 class GuidanceService {
 	constructor() {
 		this._opentripApiKey = tokens.openTripToken;
 		this._eventsApiKey = tokens.eventsApiToken;
+		this._geocodingApiKey = tokens.weatherApiToken;
 	}
 
 	async getAttractions(city) {
 		try {
-			const { lat, lon, name } = await this.#getCityCoords(city);
+			const { geoData, error } = await geocodingService.getCoordinates(
+				city,
+				this._geocodingApiKey
+			);
+
+			if (error) return { data: null, error };
 			const { data } = await axios.get(
-				formAttractionsApiUrl(lat, lon, this._opentripApiKey)
+				formAttractionsApiUrl(
+					geoData.lat,
+					geoData.lon,
+					this._opentripApiKey
+				)
 			);
 
 			return {
-				data: transformAttractionsData(name, data.features),
+				data: transformAttractionsData(geoData.name, data.features),
 				error: null,
 			};
 		} catch {
@@ -33,14 +43,19 @@ class GuidanceService {
 
 	async getFoodPlaces(city) {
 		try {
-			const { lat, lon, name } = await this.#getCityCoords(city);
+			const { geoData, error } = await geocodingService.getCoordinates(
+				city,
+				this._geocodingApiKey
+			);
+
+			if (error) return { data: null, error };
 
 			const { data } = await axios.get(
-				formFoodApiUrl(lat, lon, this._opentripApiKey)
+				formFoodApiUrl(geoData.lat, geoData.lon, this._opentripApiKey)
 			);
 
 			return {
-				data: transformFoodData(name, data.features),
+				data: transformFoodData(geoData.name, data.features),
 				error: null,
 			};
 		} catch {
@@ -50,28 +65,26 @@ class GuidanceService {
 
 	async getEvents(city) {
 		try {
-			const { country } = await this.#getCityCoords(city);
+			const { geoData, error } = await geocodingService.getCoordinates(
+				city,
+				this._geocodingApiKey
+			);
 
-			const { data } = await axios.get(formEventsApiUrl(country), {
+			if (error) return { data: null, error };
+
+			const { data } = await axios.get(formEventsApiUrl(geoData.country), {
 				headers: {
 					"X-Api-Key": this._eventsApiKey,
 				},
 			});
 
-			return { data: { city, result: data }, error: null };
+			return { data: { city: geoData.name, result: data }, error: null };
 		} catch (error) {
 			return {
 				data: null,
 				error: badEvents,
 			};
 		}
-	}
-
-	async #getCityCoords(city) {
-		const { data } = await axios.get(
-			formCityGeoUrl(city, this._opentripApiKey)
-		);
-		return data;
 	}
 }
 
