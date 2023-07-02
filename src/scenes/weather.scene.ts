@@ -32,16 +32,17 @@ const enterCityHandler = async (ctx: IBotContext) => {
 cityHandler.hears(cityRegex, async ctx => {
 	ctx.scene.session.userLocation = ctx.message.text;
 	await ctx.replyWithHTML("☀️<b>Receiving weather...</b>");
-	try {
-		const data = await weatherService.getCurrWeather(
-			ctx.scene.session.userLocation
-		);
-		await ctx.replyWithHTML(formWeatherForecast(data));
-	} catch {
-		await ctx.reply("Oops something went wrong🤕!Try again later");
+
+	const { data, error } = await weatherService.getCurrWeather(
+		ctx.scene.session.userLocation
+	);
+
+	if (error) {
+		await ctx.reply(error);
 		return ctx.scene.leave();
 	}
 
+	await ctx.replyWithHTML(formWeatherForecast(data));
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
 		return ctx.wizard.step(ctx, async () => {});
