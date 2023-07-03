@@ -1,4 +1,4 @@
-import { tasksControlButtons } from "@buttons";
+import { controlTasksButtons } from "@buttons";
 import { Command } from "@commands";
 import { IBotContext } from "@context";
 import { dbService } from "@services";
@@ -17,7 +17,7 @@ export class StartCommand extends Command {
 			);
 			await ctx.replyWithHTML(
 				`Hello <b>${userName}</b> and welcome to LessTalkBot👋🏼\n\n<i>See what this bot can do</i>, <b>use</b> /help`,
-				tasksControlButtons()
+				controlTasksButtons()
 			);
 		});
 	}

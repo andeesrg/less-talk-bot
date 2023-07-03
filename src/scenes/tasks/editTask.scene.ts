@@ -1,9 +1,5 @@
-import { taskEditButtons } from "@buttons";
-import {
-	taskEdit,
-	taskIdRegex,
-	taskTitleRegex
-} from "@constants";
+import { editTaskButtons } from "@buttons";
+import { taskEdit, taskIdRegex, taskTitleRegex } from "@constants";
 import { IBotContext } from "@context";
 import { extractTaskId } from "@helpers/extract";
 import { dbService } from "@services";
@@ -51,7 +47,7 @@ taskIdHandler.on("text", async ctx => {
 });
 
 const enterEditTypeHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Select edit type⬇️", taskEditButtons());
+	await ctx.reply("Select edit type⬇️", editTaskButtons());
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
