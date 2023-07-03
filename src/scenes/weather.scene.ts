@@ -167,8 +167,8 @@ confirmTimeHandler.action(confirmTime.action, async ctx => {
 		ctx.session.userSubLocation,
 		ctx.session.userSubTime
 	);
-	await ctx.reply(
-		`👀You've subscribed on daily weather forecast in ${ctx.session.userSubLocation}!`
+	await ctx.replyWithHTML(
+		`👀You've subscribed on daily weather forecast in <b>${ctx.session.userSubLocation.toUpperCase()}!</b>`
 	);
 	return ctx.scene.leave();
 });
