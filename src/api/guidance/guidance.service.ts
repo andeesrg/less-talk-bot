@@ -1,7 +1,6 @@
 import axios from "axios";
 
 import { notFound, tokens } from "@constants";
-import { geocoderService } from "@api/geocoder";
 import {
 	formAttractionsApiUrl,
 	formEventsApiUrl,
@@ -9,6 +8,8 @@ import {
 	transformAttractionsData,
 	transformFoodData,
 } from "@helpers";
+
+import { geocoderService } from "../geocoder";
 
 class GuidanceService {
 	private opentripApiKey: string;

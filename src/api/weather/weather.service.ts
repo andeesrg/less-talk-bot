@@ -1,8 +1,9 @@
 import axios from "axios";
 
 import { tokens } from "@constants";
-import { geocoderService } from "@api/geocoder";
 import { formWeatherUrl, transformWeatherData } from "@helpers";
+
+import { geocoderService } from "../geocoder";
 
 class WeatherService {
 	private apiKey: string;

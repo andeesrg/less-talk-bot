@@ -1,5 +1,6 @@
-import { Command } from "@commands/command.class";
 import { commands } from "@constants";
+
+import { Command } from "./command.class";
 
 export class HelpCommand extends Command {
 	handle(): void {

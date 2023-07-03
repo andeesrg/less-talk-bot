@@ -1,7 +1,6 @@
-import { controlTasksButtons } from "@buttons";
-import { dbService } from "@services";
-
 import { Command } from "@commands";
+import { dbService } from "@services";
+import { controlTasksButtons } from "@buttons";
 
 export class StartCommand extends Command {
 	handle(): void {
