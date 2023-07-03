@@ -6,30 +6,26 @@ import {
 	transformAttractionsData,
 	transformFoodData,
 } from "@helpers";
-import { geocodingService } from "@services/weather/geocoding.service";
+import { geocoderService } from "../geocoder";
 import axios from "axios";
 
 class GuidanceService {
 	constructor() {
 		this._opentripApiKey = tokens.openTripToken;
 		this._eventsApiKey = tokens.eventsApiToken;
-		this._geocodingApiKey = tokens.weatherApiToken;
+		this._geocoderApiKey = tokens.weatherApiToken;
 	}
 
 	async getAttractions(city) {
 		try {
-			const { geoData, error } = await geocodingService.getCoordinates(
+			const { geoData, error } = await geocoderService.getCoordinates(
 				city,
-				this._geocodingApiKey
+				this._geocoderApiKey
 			);
 
 			if (error) return { data: null, error };
 			const { data } = await axios.get(
-				formAttractionsApiUrl(
-					geoData.lat,
-					geoData.lon,
-					this._opentripApiKey
-				)
+				formAttractionsApiUrl(geoData.lat, geoData.lon, this._opentripApiKey)
 			);
 
 			return {
@@ -43,9 +39,9 @@ class GuidanceService {
 
 	async getFoodPlaces(city) {
 		try {
-			const { geoData, error } = await geocodingService.getCoordinates(
+			const { geoData, error } = await geocoderService.getCoordinates(
 				city,
-				this._geocodingApiKey
+				this._geocoderApiKey
 			);
 
 			if (error) return { data: null, error };
@@ -65,9 +61,9 @@ class GuidanceService {
 
 	async getEvents(city) {
 		try {
-			const { geoData, error } = await geocodingService.getCoordinates(
+			const { geoData, error } = await geocoderService.getCoordinates(
 				city,
-				this._geocodingApiKey
+				this._geocoderApiKey
 			);
 
 			if (error) return { data: null, error };

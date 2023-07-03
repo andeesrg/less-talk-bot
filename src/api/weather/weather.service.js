@@ -1,7 +1,7 @@
 import { tokens } from "@constants";
 import { formWeatherUrl, transformWeatherData } from "@helpers";
+import { geocoderService } from "../geocoder";
 import axios from "axios";
-import { geocodingService } from "./geocoding.service";
 
 class WeatherService {
 	constructor() {
@@ -9,7 +9,7 @@ class WeatherService {
 	}
 
 	async getCurrWeather(location) {
-		const { geoData, error } = await geocodingService.getCoordinates(
+		const { geoData, error } = await geocoderService.getCoordinates(
 			location,
 			this._apiKey
 		);

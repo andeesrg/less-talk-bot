@@ -2,7 +2,7 @@ import { notFound } from "@constants";
 import { formWeatherGeoUrl } from "@helpers";
 import axios from "axios";
 
-class GeocodingService {
+class GeocoderService {
 	async getCoordinates(location, apiKey) {
 		const { data } = await axios.get(formWeatherGeoUrl(location, apiKey));
 
@@ -18,4 +18,4 @@ class GeocodingService {
 	}
 }
 
-export const geocodingService = new GeocodingService();
+export const geocoderService = new GeocoderService();
