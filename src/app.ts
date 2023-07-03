@@ -87,7 +87,10 @@ class Bot {
 		const regex = new RegExp(
 			`${taskActions.create.action}|${taskActions.edit.action}|${taskActions.read.action}|${taskActions.remove.action}`
 		);
-		this.bot.hears(regex, ctx => ctx.scene.enter("tasks"));
+		this.bot.hears(regex, ctx => {
+			ctx.session.chatId = ctx.message.chat.id;
+			ctx.scene.enter("tasks");
+		});
 	}
 
 	initUnsubListener() {
