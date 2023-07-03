@@ -7,6 +7,9 @@ export class WeatherCommand extends Command {
 		super(bot);
 	}
 	handle(): void {
-		this.bot.command("weather", ctx => ctx.scene.enter("weather"));
+		this.bot.command("weather", async ctx => {
+			ctx.session.chatId = ctx.message.chat.id;
+			ctx.scene.enter("weather");
+		});
 	}
 }
