@@ -53,6 +53,17 @@ class Bot {
 		this.bot = new Telegraf<IBotContext>(tokens.botToken);
 		this.bot.use(session()).middleware();
 		this.bot.use(this.stage.middleware());
+		this.initErrorListeners();
+	}
+
+	initErrorListeners() {
+		process.once("SIGINT", () => {
+			this.bot.stop("SIGINT");
+		});
+
+		process.once("SIGTERM", () => {
+			this.bot.stop("SIGTERM");
+		});
 	}
 
 	async init() {
@@ -67,14 +78,6 @@ class Bot {
 		for (const command of this.commands) {
 			command.handle();
 		}
-
-		process.once("SIGINT", () => {
-			this.bot.stop("SIGINT");
-		});
-
-		process.once("SIGTERM", () => {
-			this.bot.stop("SIGTERM");
-		});
 
 		await this.bot.launch();
 	}
