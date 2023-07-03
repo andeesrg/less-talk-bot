@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "heroku-prebuild": "npm install --dev",
+    "heroku-prebuild": "npm install --production=false",
     "dev": "tsc && tsc-alias && node ./dist/app.js",
     "build": "webpack",
     "start": "node ./build/index.js",
