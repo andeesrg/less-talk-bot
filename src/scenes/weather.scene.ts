@@ -10,7 +10,8 @@ import {
 } from "@constants";
 import { IBotContext } from "@context";
 import { extractTime, formWeatherForecast } from "@helpers";
-import { SubscribeService, weatherService } from "@services";
+import { SubscribeService } from "@services";
+import { weatherService } from "@api";
 import { Composer, Scenes } from "telegraf";
 
 const cityHandler = new Composer<IBotContext>();

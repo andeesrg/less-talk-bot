@@ -1,7 +1,7 @@
 import { cityRegex } from "@constants";
 import { IBotContext } from "@context";
 import { formFoodPlaces } from "@helpers";
-import { guidanceService } from "@services/guidance";
+import { guidanceService } from "@api";
 import { Composer, Scenes } from "telegraf";
 
 const cityHandler = new Composer<IBotContext>();
@@ -17,9 +17,7 @@ const enterCityHandler = async (ctx: IBotContext) => {
 
 cityHandler.hears(cityRegex, async ctx => {
 	await ctx.replyWithHTML("🍟<b>Gathering eateries...</b>");
-	const { data, error } = await guidanceService.getFoodPlaces(
-		ctx.message.text
-	);
+	const { data, error } = await guidanceService.getFoodPlaces(ctx.message.text);
 
 	if (error) {
 		await ctx.reply(error);
