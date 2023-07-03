@@ -6,10 +6,8 @@
 		"baseUrl": "./src",
 		"paths": {
 			"@commands": ["commands"],
-			"@commands/*": ["commands/*"],
 			"@interfaces": ["interfaces"],
 			"@api": ["api"],
-			"@api/*": ["api/*"],
 			"@constants": ["constants"],
 			"@constants/*": ["constants/*"],
 			"@helpers": ["helpers"],
