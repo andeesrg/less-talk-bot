@@ -1,6 +1,6 @@
 import { controlTasksButtons } from "@buttons";
 import { Command } from "@commands";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { dbService } from "@services";
 import { Telegraf } from "telegraf";
 

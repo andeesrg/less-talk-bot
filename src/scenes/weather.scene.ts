@@ -8,7 +8,7 @@ import {
 	subCity,
 	timeRegex,
 } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { extractTime, formWeatherForecast } from "@helpers";
 import { SubscribeService } from "@services";
 import { weatherService } from "@api";

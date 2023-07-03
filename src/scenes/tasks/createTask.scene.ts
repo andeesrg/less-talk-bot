@@ -1,5 +1,5 @@
 import { taskTitleRegex } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { dbService } from "@services";
 import { Composer, Scenes } from "telegraf";
 

@@ -1,5 +1,5 @@
 import { cityRegex } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { formAttractions } from "@helpers/form";
 import { guidanceService } from "@api";
 import { Composer, Scenes } from "telegraf";

@@ -28,7 +28,7 @@ module.exports = {
 	resolve: {
 		plugins: [new TsconfigPathsPlugin()],
 		alias: {
-			"@context": path.resolve(__dirname, "src/context/index"),
+			"@interfaces": path.resolve(__dirname, "src/context/index"),
 			"@commands": path.resolve(__dirname, "src/commands/index"),
 			"@constants": path.resolve(__dirname, "src/constants/index"),
 			"@constants/*": path.resolve(__dirname, "src/constants/*"),

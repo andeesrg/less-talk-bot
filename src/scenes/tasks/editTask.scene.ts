@@ -1,6 +1,6 @@
 import { editTaskButtons } from "@buttons";
 import { taskEdit, taskIdRegex, taskTitleRegex } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { extractTaskId } from "@helpers/extract";
 import { dbService } from "@services";
 import { Composer, Scenes } from "telegraf";

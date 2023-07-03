@@ -1,5 +1,5 @@
-import { Telegraf } from 'telegraf';
-import { IBotContext } from '@context';
+import { Telegraf } from "telegraf";
+import { IBotContext } from "@interfaces";
 
 export abstract class Command {
 	constructor(public bot: Telegraf<IBotContext>) {}

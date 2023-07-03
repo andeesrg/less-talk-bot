@@ -1,5 +1,5 @@
 import { tasks as taskActions } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { Composer, Scenes } from "telegraf";
 
 const taskHandler = new Composer<IBotContext>();

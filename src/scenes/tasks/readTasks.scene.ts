@@ -1,4 +1,4 @@
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { formTasks } from "@helpers";
 import { dbService } from "@services";
 import { Scenes } from "telegraf";

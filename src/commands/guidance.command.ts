@@ -1,5 +1,5 @@
 import { Command } from "@commands";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { Telegraf } from "telegraf";
 
 export class GuidanceCommand extends Command {

@@ -1,6 +1,6 @@
 import { unsubButton } from "@buttons";
 import { tokens } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { formWeatherForecast } from "@helpers";
 import { weatherService } from "@api";
 import cron from "node-cron";

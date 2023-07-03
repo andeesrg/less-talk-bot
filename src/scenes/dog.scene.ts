@@ -1,5 +1,5 @@
 import { dogApiUrl } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import axios from "axios";
 import { Scenes } from "telegraf";
 

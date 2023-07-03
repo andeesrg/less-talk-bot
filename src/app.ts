@@ -8,7 +8,7 @@ import {
 	WeatherCommand,
 } from "@commands";
 import { commands, tasks as taskActions, tokens, unsub } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import {
 	attractions,
 	cat,

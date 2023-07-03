@@ -1,5 +1,5 @@
 import { catApiUrl } from "@constants";
-import { IBotContext } from "@context";
+import { IBotContext } from "@interfaces";
 import { Scenes } from "telegraf";
 
 const requestPicHandler = async (ctx: IBotContext) => {
