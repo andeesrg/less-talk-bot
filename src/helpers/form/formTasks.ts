@@ -1,6 +1,8 @@
-const isCompleted = value => (!!value ? "✅" : "❌");
+import { ITask } from "@interfaces";
 
-export const formTasks = tasks => {
+const isCompleted = (value: boolean) => (value ? "✅" : "❌");
+
+export const formTasks = (tasks: ITask[]): string => {
 	if (!tasks.length) "Your tasks list is empty☁️";
 
 	return `🗒️Here's your current list of tasks\n\n${tasks
