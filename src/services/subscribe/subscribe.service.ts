@@ -2,7 +2,7 @@ import { unsubButton } from "@buttons";
 import { tokens } from "@constants";
 import { IBotContext } from "@context";
 import { formWeatherForecast } from "@helpers";
-import { weatherService } from "@services";
+import { weatherService } from "@api";
 import cron from "node-cron";
 import { Telegraf } from "telegraf";
 
