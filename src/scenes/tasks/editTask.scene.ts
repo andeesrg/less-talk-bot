@@ -1,7 +1,6 @@
 import { editTaskButtons } from "@buttons";
 import { taskEdit, taskIdRegex, taskTitleRegex } from "@constants";
 import { IBotContext } from "@interfaces";
-import { extractTaskId } from "@helpers/extract";
 import { dbService } from "@services";
 import { Composer, Scenes } from "telegraf";
 
@@ -19,7 +18,7 @@ const enterTaskIdHandler = async (ctx: IBotContext) => {
 };
 
 taskIdHandler.hears(taskIdRegex, async ctx => {
-	ctx.scene.session.taskId = extractTaskId(ctx.message.text);
+	ctx.scene.session.taskId = Number(ctx.message.text);
 	const tasks = await dbService.readTasks(ctx.session.chatId);
 	if (!tasks?.length) {
 		await ctx.reply("List is empty👀");
