@@ -1,21 +1,26 @@
 import { tokens } from "@constants";
 import { orderTasksId } from "@helpers";
+import { IEditTaskParams } from "@interfaces";
 import { MongoClient } from "mongodb";
 
 class DatabaseService {
+	private dbUrl: string;
+	private users: any;
+
 	constructor() {
-		this._dbUrl = tokens.dbUrl;
+		this.dbUrl = tokens.dbUrl;
+		this.users = [];
 	}
 
 	async connectToDB() {
-		const client = new MongoClient(this._dbUrl);
+		const client = new MongoClient(this.dbUrl);
 		await client.connect();
 		const db = client.db("less_talk_bot");
 		const collection = db.collection("users");
 		this.users = collection;
 	}
 
-	async initUser(chatId, userName) {
+	async initUser(chatId: number, userName: string) {
 		const existedUser = await this.#isUserExists(chatId, userName);
 		if (existedUser) return { userName: existedUser };
 		await this.users.insertOne({
@@ -26,12 +31,12 @@ class DatabaseService {
 		return { userName };
 	}
 
-	async readTasks(chatId) {
+	async readTasks(chatId: number) {
 		const user = await this.users.findOne({ chatId });
 		return user?.tasks;
 	}
 
-	async createTask(chatId, title) {
+	async createTask(chatId: number, title: string) {
 		const tasks = await this.readTasks(chatId);
 		await this.users.updateOne(
 			{ chatId },
@@ -43,7 +48,7 @@ class DatabaseService {
 		);
 	}
 
-	async editTask(chatId, task) {
+	async editTask(chatId: number, task: IEditTaskParams) {
 		if (task.editType === "status") {
 			await this.users.updateOne(
 				{
@@ -67,7 +72,7 @@ class DatabaseService {
 		}
 	}
 
-	async removeTask(chatId, taskId) {
+	async removeTask(chatId: number, taskId: number) {
 		await this.users.updateOne(
 			{ chatId },
 			{ $pull: { tasks: { id: taskId } } }
@@ -79,7 +84,7 @@ class DatabaseService {
 		);
 	}
 
-	async #isUserExists(chatId, userName) {
+	async #isUserExists(chatId: number, userName: string) {
 		const matchedUser = await this.users.findOne({ chatId, userName });
 		if (!matchedUser) return null;
 		return userName;
