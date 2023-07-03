@@ -1,4 +1,5 @@
 import { Telegraf } from "telegraf";
+
 import { IBotContext } from "@interfaces";
 
 export abstract class Command {

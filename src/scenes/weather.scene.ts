@@ -1,18 +1,12 @@
-import { confirmTimeButtons, subButtons, subCityButtons } from "@buttons";
-import {
-	cityRegex,
-	confirmTime,
-	editTime,
-	nonSub,
-	sub,
-	subCity,
-	timeRegex,
-} from "@constants";
-import { IBotContext } from "@interfaces";
-import { extractTime, formWeatherForecast } from "@helpers";
-import { SubscribeService } from "@services";
-import { weatherService } from "@api";
 import { Composer, Scenes } from "telegraf";
+
+import { confirmTimeButtons, subButtons, subCityButtons } from "@buttons";
+import { SubscribeService } from "@services";
+
+import { cityRegex, confirmTime, editTime, nonSub, sub, subCity, timeRegex } from "@constants";
+import { IBotContext } from "@interfaces";
+import { weatherService } from "@api";
+import { extractTime, formWeatherForecast } from "@helpers";
 
 const cityHandler = new Composer<IBotContext>();
 const suggestSubCityHandler = new Composer<IBotContext>();
@@ -34,9 +28,7 @@ cityHandler.hears(cityRegex, async ctx => {
 	ctx.scene.session.userLocation = ctx.message.text;
 	await ctx.replyWithHTML("☀️<b>Receiving weather...</b>");
 
-	const { data, error } = await weatherService.getCurrWeather(
-		ctx.scene.session.userLocation
-	);
+	const { data, error } = await weatherService.getCurrWeather(ctx.scene.session.userLocation);
 
 	if (error) {
 		await ctx.reply(error);
@@ -51,17 +43,12 @@ cityHandler.hears(cityRegex, async ctx => {
 });
 cityHandler.on("text", async ctx => {
 	if (!cityRegex.test(ctx.message.text)) {
-		await ctx.replyWithHTML(
-			"<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>"
-		);
+		await ctx.replyWithHTML("<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>");
 	}
 });
 
 const suggestSubHandler = async (ctx: IBotContext) => {
-	await ctx.reply(
-		"☀️Would you like to receive daily weather forecast?",
-		subButtons()
-	);
+	await ctx.reply("☀️Would you like to receive daily weather forecast?", subButtons());
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -70,10 +57,7 @@ const suggestSubHandler = async (ctx: IBotContext) => {
 };
 
 suggestSubCityHandler.action(sub.action, async ctx => {
-	await ctx.reply(
-		"Choose a city you'd like to get weather about🏙️",
-		subCityButtons()
-	);
+	await ctx.reply("Choose a city you'd like to get weather about🏙️", subCityButtons());
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {
@@ -116,9 +100,7 @@ newSubCityHandler.hears(cityRegex, async ctx => {
 });
 newSubCityHandler.on("text", async ctx => {
 	if (!cityRegex.test(ctx.message.text)) {
-		await ctx.replyWithHTML(
-			"<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>"
-		);
+		await ctx.replyWithHTML("<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>");
 	}
 });
 
@@ -143,9 +125,7 @@ timeHandler.hears(timeRegex, async ctx => {
 });
 timeHandler.on("text", async ctx => {
 	if (!timeRegex.test(ctx.message.text)) {
-		await ctx.replyWithHTML(
-			"<b>Time</b> is invalid❌\nEnter time in proper format!(e.g. 7:05)"
-		);
+		await ctx.replyWithHTML("<b>Time</b> is invalid❌\nEnter time in proper format!(e.g. 7:05)");
 	}
 });
 

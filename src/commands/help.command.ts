@@ -1,12 +1,7 @@
-import { Command } from "@commands";
+import { Command } from "@commands/command.class";
 import { commands } from "@constants";
-import { IBotContext } from "@interfaces";
-import { Telegraf } from "telegraf";
 
 export class HelpCommand extends Command {
-	constructor(bot: Telegraf<IBotContext>) {
-		super(bot);
-	}
 	handle(): void {
 		this.bot.help(async ctx => {
 			await ctx.reply(

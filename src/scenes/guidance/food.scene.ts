@@ -1,8 +1,9 @@
+import { Composer, Scenes } from "telegraf";
+
 import { cityRegex } from "@constants";
 import { IBotContext } from "@interfaces";
-import { formFoodPlaces } from "@helpers";
 import { guidanceService } from "@api";
-import { Composer, Scenes } from "telegraf";
+import { formFoodPlaces } from "@helpers";
 
 const cityHandler = new Composer<IBotContext>();
 
@@ -29,14 +30,8 @@ cityHandler.hears(cityRegex, async ctx => {
 });
 cityHandler.on("text", async ctx => {
 	if (!cityRegex.test(ctx.message.text)) {
-		await ctx.replyWithHTML(
-			"<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>"
-		);
+		await ctx.replyWithHTML("<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>");
 	}
 });
 
-export const food = new Scenes.WizardScene<IBotContext>(
-	"food",
-	enterCityHandler,
-	cityHandler
-);
+export const food = new Scenes.WizardScene<IBotContext>("food", enterCityHandler, cityHandler);

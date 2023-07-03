@@ -1,13 +1,9 @@
 import { controlTasksButtons } from "@buttons";
-import { Command } from "@commands";
-import { IBotContext } from "@interfaces";
 import { dbService } from "@services";
-import { Telegraf } from "telegraf";
+
+import { Command } from "@commands";
 
 export class StartCommand extends Command {
-	constructor(bot: Telegraf<IBotContext>) {
-		super(bot);
-	}
 	handle(): void {
 		this.bot.start(async ctx => {
 			ctx.session.chatId = ctx.message.chat.id;

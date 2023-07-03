@@ -1,7 +1,9 @@
+import { Composer, Scenes } from "telegraf";
+
+import { dbService } from "@services";
+
 import { taskTitleRegex } from "@constants";
 import { IBotContext } from "@interfaces";
-import { dbService } from "@services";
-import { Composer, Scenes } from "telegraf";
 
 const taskTitleHandler = new Composer<IBotContext>();
 

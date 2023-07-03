@@ -30,6 +30,9 @@ module.exports = {
 		alias: {
 			"@interfaces": path.resolve(__dirname, "src/context/index"),
 			"@commands": path.resolve(__dirname, "src/commands/index"),
+			"@commands/*": path.resolve(__dirname, "src/commands/*"),
+			"@api": path.resolve(__dirname, "src/api/index"),
+			"@api/*": path.resolve(__dirname, "src/api/*"),
 			"@constants": path.resolve(__dirname, "src/constants/index"),
 			"@constants/*": path.resolve(__dirname, "src/constants/*"),
 			"@helpers": path.resolve(__dirname, "src/helpers/index"),

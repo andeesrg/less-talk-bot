@@ -1,5 +1,6 @@
-import { confirmTime, editTime } from "@constants/actions";
 import { Markup } from "telegraf";
+
+import { confirmTime, editTime } from "@constants/actions";
 
 export const confirmTimeButtons = () =>
 	Markup.inlineKeyboard([

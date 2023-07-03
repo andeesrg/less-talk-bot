@@ -1,10 +1,12 @@
-import { tokens } from "@constants";
-import { orderTasksId } from "@helpers";
-import { IEditTaskParams } from "@interfaces";
 import { MongoClient } from "mongodb";
+
+import { tokens } from "@constants";
+import { IEditTaskParams } from "@interfaces";
+import { orderTasksId } from "@helpers";
 
 class DatabaseService {
 	private dbUrl: string;
+
 	private users: any;
 
 	constructor() {
@@ -73,15 +75,9 @@ class DatabaseService {
 	}
 
 	async removeTask(chatId: number, taskId: number) {
-		await this.users.updateOne(
-			{ chatId },
-			{ $pull: { tasks: { id: taskId } } }
-		);
+		await this.users.updateOne({ chatId }, { $pull: { tasks: { id: taskId } } });
 		const orderedTasks = orderTasksId(await this.readTasks(chatId));
-		await this.users.findOneAndUpdate(
-			{ chatId },
-			{ $set: { tasks: orderedTasks } }
-		);
+		await this.users.findOneAndUpdate({ chatId }, { $set: { tasks: orderedTasks } });
 	}
 
 	async #isUserExists(chatId: number, userName: string) {

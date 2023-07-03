@@ -1,5 +1,6 @@
-import { taskEdit } from "@constants/actions";
 import { Markup } from "telegraf";
+
+import { taskEdit } from "@constants/actions";
 
 export const editTaskButtons = () =>
 	Markup.inlineKeyboard([

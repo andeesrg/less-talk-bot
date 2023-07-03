@@ -1,7 +1,9 @@
+import { Composer, Scenes } from "telegraf";
+
+import { dbService } from "@services";
+
 import { taskIdRegex } from "@constants";
 import { IBotContext } from "@interfaces";
-import { dbService } from "@services";
-import { Composer, Scenes } from "telegraf";
 
 const taskIdHandler = new Composer<IBotContext>();
 
@@ -22,9 +24,7 @@ taskIdHandler.hears(taskIdRegex, async ctx => {
 		return ctx.scene.leave();
 	}
 
-	const matchedTask = tasks.find(
-		(task: any) => task.id === ctx.scene.session.taskId
-	);
+	const matchedTask = tasks.find((task: any) => task.id === ctx.scene.session.taskId);
 	if (!matchedTask) {
 		await ctx.reply("Task does not exist🤷🏼");
 		return ctx.scene.leave();

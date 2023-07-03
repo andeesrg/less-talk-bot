@@ -1,3 +1,7 @@
+import { Scenes, session, Telegraf } from "telegraf";
+
+import { dbService } from "@services";
+
 import {
 	CatCommand,
 	Command,
@@ -7,8 +11,6 @@ import {
 	StartCommand,
 	WeatherCommand,
 } from "@commands";
-import { commands, tasks as taskActions, tokens, unsub } from "@constants";
-import { IBotContext } from "@interfaces";
 import {
 	attractions,
 	cat,
@@ -24,12 +26,14 @@ import {
 	unsubscribe,
 	weather,
 } from "@scenes";
-import { dbService } from "@services";
-import { Scenes, Telegraf, session } from "telegraf";
+import { commands, tasks as taskActions, tokens, unsub } from "@constants";
+import { IBotContext } from "@interfaces";
 
 class Bot {
 	bot: Telegraf<IBotContext>;
+
 	commands: Command[] = [];
+
 	stage = new Scenes.Stage<IBotContext>(
 		[
 			weather,

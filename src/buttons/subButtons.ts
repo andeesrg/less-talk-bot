@@ -1,5 +1,6 @@
-import { nonSub, sub } from "@constants/actions";
 import { Markup } from "telegraf";
+
+import { nonSub, sub } from "@constants/actions";
 
 export const subButtons = () =>
 	Markup.inlineKeyboard([

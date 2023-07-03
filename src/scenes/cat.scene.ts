@@ -1,6 +1,7 @@
+import { Scenes } from "telegraf";
+
 import { catApiUrl } from "@constants";
 import { IBotContext } from "@interfaces";
-import { Scenes } from "telegraf";
 
 const requestPicHandler = async (ctx: IBotContext) => {
 	await ctx.replyWithHTML("🔎<b>Looking for a random cat picture...</b>🐈");
@@ -12,7 +13,4 @@ const requestPicHandler = async (ctx: IBotContext) => {
 	return ctx.scene.leave();
 };
 
-export const cat = new Scenes.WizardScene<IBotContext>(
-	"cat",
-	requestPicHandler
-);
+export const cat = new Scenes.WizardScene<IBotContext>("cat", requestPicHandler);

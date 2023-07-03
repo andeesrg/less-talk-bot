@@ -1,5 +1,6 @@
-import { tasks } from "@constants/actions";
 import { Markup } from "telegraf";
+
+import { tasks } from "@constants/actions";
 
 export const controlTasksButtons = () =>
 	Markup.keyboard(

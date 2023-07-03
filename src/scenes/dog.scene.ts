@@ -1,7 +1,9 @@
+import { Scenes } from "telegraf";
+
+import axios from "axios";
+
 import { dogApiUrl } from "@constants";
 import { IBotContext } from "@interfaces";
-import axios from "axios";
-import { Scenes } from "telegraf";
 
 const requestPicHandler = async (ctx: IBotContext) => {
 	await ctx.replyWithHTML("🔎<b>Looking for a random dog picture...</b>🐕");
@@ -14,7 +16,4 @@ const requestPicHandler = async (ctx: IBotContext) => {
 	return ctx.scene.leave();
 };
 
-export const dog = new Scenes.WizardScene<IBotContext>(
-	"dog",
-	requestPicHandler
-);
+export const dog = new Scenes.WizardScene<IBotContext>("dog", requestPicHandler);

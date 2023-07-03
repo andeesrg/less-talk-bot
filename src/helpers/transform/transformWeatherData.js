@@ -2,7 +2,7 @@ import { convertToCelcius } from "@helpers/convert";
 
 export function transformWeatherData(city, data) {
 	const condition = data.weather[0].description;
-	const main = data.main;
+	const { main } = data;
 	const visibility = (data.visibility / 1000).toFixed(0);
 	const windSpeed = data.wind.speed.toFixed(0);
 
@@ -14,8 +14,8 @@ export function transformWeatherData(city, data) {
 		min: convertToCelcius(main.temp_min),
 		max: convertToCelcius(main.temp_max),
 		visibility: `${visibility} km`,
-		["wind speed"]: `${windSpeed} mps`,
-		humidity: main.humidity + "%",
+		"wind speed": `${windSpeed} mps`,
+		humidity: `${main.humidity}%`,
 	};
 }
 

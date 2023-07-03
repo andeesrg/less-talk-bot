@@ -1,5 +1,6 @@
-import { guid } from "@constants/actions";
 import { Markup } from "telegraf";
+
+import { guid } from "@constants/actions";
 
 export const guidButtons = () =>
 	Markup.inlineKeyboard(

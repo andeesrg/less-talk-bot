@@ -1,5 +1,6 @@
-import { subCity } from "@constants/actions";
 import { Markup } from "telegraf";
+
+import { subCity } from "@constants/actions";
 
 export const subCityButtons = () =>
 	Markup.inlineKeyboard([

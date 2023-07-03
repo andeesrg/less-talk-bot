@@ -1,7 +1,9 @@
+import { Scenes } from "telegraf";
+
+import { dbService } from "@services";
+
 import { IBotContext } from "@interfaces";
 import { formTasks } from "@helpers";
-import { dbService } from "@services";
-import { Scenes } from "telegraf";
 
 const requestTasksHandler = async (ctx: IBotContext) => {
 	await ctx.reply("Receiving tasks...⌛️");
@@ -14,7 +16,4 @@ const requestTasksHandler = async (ctx: IBotContext) => {
 	return ctx.scene.leave();
 };
 
-export const readTasks = new Scenes.WizardScene<IBotContext>(
-	"readTasks",
-	requestTasksHandler
-);
+export const readTasks = new Scenes.WizardScene<IBotContext>("readTasks", requestTasksHandler);
