@@ -96,15 +96,15 @@ class Bot {
 		const regex = new RegExp(
 			`${taskActions.create.action}|${taskActions.edit.action}|${taskActions.read.action}|${taskActions.remove.action}`
 		);
-		this.bot.hears(regex, ctx => {
+		this.bot.hears(regex, async ctx => {
 			ctx.session.chatId = ctx.message.chat.id;
-			ctx.scene.enter("tasks");
+			await ctx.scene.enter("tasks");
 		});
 	}
 
 	initUnsubListener() {
-		this.bot.action(unsub.action, ctx => {
-			ctx.scene.enter("unsubscribe");
+		this.bot.action(unsub.action, async ctx => {
+			await ctx.scene.enter("unsubscribe");
 		});
 	}
 }
