@@ -1,50 +1,46 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 
-import { tokens } from "@constants";
-import { IEditTaskParams } from "@interfaces";
+import { User } from "@models";
 import { orderTasksId } from "@helpers";
+import { IEditTaskParams } from "@interfaces";
+import { tokens } from "@constants";
 
 class DatabaseService {
 	private dbUrl: string;
 
-	private users: any;
-
 	constructor() {
 		this.dbUrl = tokens.dbUrl;
-		this.users = [];
 	}
 
-	async connectToDB() {
-		const client = new MongoClient(this.dbUrl);
-		await client.connect();
-		const db = client.db("less_talk_bot");
-		const collection = db.collection("users");
-		this.users = collection;
+	async connectToDb() {
+		try {
+			mongoose.set({ strictQuery: true });
+			await mongoose.connect(this.dbUrl);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async initUser(chatId: number, userName: string) {
-		const existedUser = await this.#isUserExists(chatId, userName);
+		const existedUser = await this.isUserExisted(chatId, userName);
 		if (existedUser) return { userName: existedUser };
-		await this.users.insertOne({
-			userName,
-			chatId,
-			tasks: [],
-		});
+		const user = new User({ userName, chatId, tasks: [] });
+		await user.save();
 		return { userName };
 	}
 
 	async readTasks(chatId: number) {
-		const user = await this.users.findOne({ chatId });
-		return user?.tasks;
+		const user = await User.findOne({ chatId }, { tasks: 1, _id: 0 });
+		return user ? user.tasks : [];
 	}
 
 	async createTask(chatId: number, title: string) {
 		const tasks = await this.readTasks(chatId);
-		await this.users.updateOne(
+		await User.findOneAndUpdate(
 			{ chatId },
 			{
 				$push: {
-					tasks: { title, isCompleted: false, id: tasks.length + 1 },
+					tasks: { title, isCompleted: false, id: tasks?.length + 1 },
 				},
 			}
 		);
@@ -52,7 +48,7 @@ class DatabaseService {
 
 	async editTask(chatId: number, task: IEditTaskParams) {
 		if (task.editType === "status") {
-			await this.users.updateOne(
+			await User.updateOne(
 				{
 					chatId,
 					"tasks.id": task.id,
@@ -62,7 +58,7 @@ class DatabaseService {
 				}
 			);
 		} else if (task.editType === "title") {
-			await this.users.updateOne(
+			await User.updateOne(
 				{
 					chatId,
 					"tasks.id": task.id,
@@ -75,13 +71,13 @@ class DatabaseService {
 	}
 
 	async removeTask(chatId: number, taskId: number) {
-		await this.users.updateOne({ chatId }, { $pull: { tasks: { id: taskId } } });
+		await User.updateOne({ chatId }, { $pull: { tasks: { id: taskId } } });
 		const orderedTasks = orderTasksId(await this.readTasks(chatId));
-		await this.users.findOneAndUpdate({ chatId }, { $set: { tasks: orderedTasks } });
+		await User.findOneAndUpdate({ chatId }, { $set: { tasks: orderedTasks } });
 	}
 
-	async #isUserExists(chatId: number, userName: string) {
-		const matchedUser = await this.users.findOne({ chatId, userName });
+	private async isUserExisted(chatId: number, userName: string) {
+		const matchedUser = await User.findOne({ chatId });
 		if (!matchedUser) return null;
 		return userName;
 	}
