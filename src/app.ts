@@ -1,7 +1,5 @@
 import { Scenes, session, Telegraf } from "telegraf";
 
-import { dbService } from "@services";
-
 import {
 	CatCommand,
 	Command,
@@ -26,8 +24,9 @@ import {
 	unsubscribe,
 	weather,
 } from "@scenes";
-import { commands, tasks as taskActions, tokens, unsub } from "@constants";
+import { dbService } from "@services";
 import { IBotContext } from "@interfaces";
+import { commands, tasks as taskActions, tokens, unsub } from "@constants";
 
 class Bot {
 	bot: Telegraf<IBotContext>;
@@ -58,6 +57,9 @@ class Bot {
 		this.bot.use(session()).middleware();
 		this.bot.use(this.stage.middleware());
 		this.initErrorListeners();
+		this.initCommands();
+		this.initTasksListener();
+		this.initUnsubListener();
 	}
 
 	initErrorListeners() {
@@ -110,9 +112,6 @@ class Bot {
 const bot = new Bot();
 
 (async () => {
-	await dbService.connectToDB();
-	bot.initCommands();
-	bot.initTasksListener();
-	bot.initUnsubListener();
+	await dbService.connectToDb();
 	bot.init();
 })();

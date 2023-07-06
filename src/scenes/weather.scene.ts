@@ -1,12 +1,11 @@
 import { Composer, Scenes } from "telegraf";
 
-import { confirmTimeButtons, subButtons, subCityButtons } from "@buttons";
-import { SubscribeService } from "@services";
-
-import { cityRegex, confirmTime, editTime, nonSub, sub, subCity, timeRegex } from "@constants";
-import { IBotContext } from "@interfaces";
 import { weatherService } from "@api";
+import { SubscribeService } from "@services";
 import { extractTime, formWeatherForecast } from "@helpers";
+import { confirmTimeButtons, subButtons, subCityButtons } from "@buttons";
+import { IBotContext } from "@interfaces";
+import { cityRegex, confirmTime, editTime, nonSub, sub, subCity, timeRegex } from "@constants";
 
 const cityHandler = new Composer<IBotContext>();
 const suggestSubCityHandler = new Composer<IBotContext>();

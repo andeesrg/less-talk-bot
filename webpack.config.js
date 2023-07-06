@@ -31,6 +31,7 @@ module.exports = {
 			"@interfaces": path.resolve(__dirname, "src/context"),
 			"@commands": path.resolve(__dirname, "src/commands"),
 			"@api": path.resolve(__dirname, "src/api"),
+			"@models": path.resolve(__dirname, "src/models"),
 			"@constants": path.resolve(__dirname, "src/constants"),
 			"@constants/*": path.resolve(__dirname, "src/constants/*"),
 			"@helpers": path.resolve(__dirname, "src/helpers"),

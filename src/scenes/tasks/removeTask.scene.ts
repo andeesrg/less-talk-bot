@@ -1,9 +1,8 @@
 import { Composer, Scenes } from "telegraf";
 
 import { dbService } from "@services";
-
-import { taskIdRegex } from "@constants";
 import { IBotContext } from "@interfaces";
+import { taskIdRegex } from "@constants";
 
 const taskIdHandler = new Composer<IBotContext>();
 

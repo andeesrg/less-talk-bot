@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { tokens } from "@constants";
 import { formWeatherUrl, transformWeatherData } from "@helpers";
+import { tokens } from "@constants";
 
 import { geocoderService } from "../geocoder";
 

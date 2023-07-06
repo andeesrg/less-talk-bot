@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { notFound } from "@constants";
 import { formWeatherGeoUrl } from "@helpers";
+import { notFound } from "@constants";
 
 class GeocoderService {
 	async getCoordinates(location, apiKey) {

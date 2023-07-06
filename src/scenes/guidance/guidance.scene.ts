@@ -1,9 +1,8 @@
 import { Composer, Scenes } from "telegraf";
 
 import { guidButtons } from "@buttons";
-
-import { guid } from "@constants/actions";
 import { IBotContext } from "@interfaces";
+import { guid } from "@constants/actions";
 
 const guidHandler = new Composer<IBotContext>();
 

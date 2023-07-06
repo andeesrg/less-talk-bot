@@ -1,10 +1,9 @@
 import { Composer, Scenes } from "telegraf";
 
-import { editTaskButtons } from "@buttons";
 import { dbService } from "@services";
-
-import { taskEdit, taskIdRegex, taskTitleRegex } from "@constants";
+import { editTaskButtons } from "@buttons";
 import { IBotContext } from "@interfaces";
+import { taskEdit, taskIdRegex, taskTitleRegex } from "@constants";
 
 const taskIdHandler = new Composer<IBotContext>();
 const editTypeHandler = new Composer<IBotContext>();

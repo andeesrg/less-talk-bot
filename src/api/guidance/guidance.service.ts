@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import { notFound, tokens } from "@constants";
 import {
 	formAttractionsApiUrl,
 	formEventsApiUrl,
@@ -8,6 +7,7 @@ import {
 	transformAttractionsData,
 	transformFoodData,
 } from "@helpers";
+import { notFound, tokens } from "@constants";
 
 import { geocoderService } from "../geocoder";
 

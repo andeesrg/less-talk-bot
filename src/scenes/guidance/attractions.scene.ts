@@ -1,9 +1,9 @@
 import { Composer, Scenes } from "telegraf";
 
-import { cityRegex } from "@constants";
-import { IBotContext } from "@interfaces";
 import { guidanceService } from "@api";
 import { formAttractions } from "@helpers/form";
+import { IBotContext } from "@interfaces";
+import { cityRegex } from "@constants";
 
 const cityHandler = new Composer<IBotContext>();
 

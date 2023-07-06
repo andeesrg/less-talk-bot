@@ -1,9 +1,8 @@
 import { Scenes } from "telegraf";
 
 import { dbService } from "@services";
-
-import { IBotContext } from "@interfaces";
 import { formTasks } from "@helpers";
+import { IBotContext } from "@interfaces";
 
 const requestTasksHandler = async (ctx: IBotContext) => {
 	await ctx.reply("Receiving tasks...⌛️");
