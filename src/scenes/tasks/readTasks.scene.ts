@@ -1,12 +1,11 @@
 import { Scenes } from "telegraf";
 
 import { dbService } from "@services";
-
-import { IBotContext } from "@interfaces";
 import { formTasks } from "@helpers";
+import { IBotContext } from "@interfaces";
 
 const requestTasksHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Receiving tasks...⌛️");
+	await ctx.replyWithHTML("<b>Receiving tasks...</b>⌛️");
 	const tasks = await dbService.readTasks(ctx.session.chatId);
 	if (!tasks || !tasks?.length) {
 		await ctx.reply("List is empty👀");

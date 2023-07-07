@@ -1,12 +1,11 @@
 import cron from "node-cron";
 import { Telegraf } from "telegraf";
 
-import { unsubButton } from "@buttons";
-
-import { tokens } from "@constants";
-import { IBotContext } from "@interfaces";
 import { weatherService } from "@api";
 import { formWeatherForecast } from "@helpers";
+import { unsubButton } from "@buttons";
+import { IBotContext } from "@interfaces";
+import { tokens } from "@constants";
 
 export class SubscribeService {
 	private bot: Telegraf<IBotContext>;

@@ -1,7 +1,7 @@
 import { Scenes } from "telegraf";
 
-import { catApiUrl } from "@constants";
 import { IBotContext } from "@interfaces";
+import { catApiUrl } from "@constants";
 
 const requestPicHandler = async (ctx: IBotContext) => {
 	await ctx.replyWithHTML("🔎<b>Looking for a random cat picture...</b>🐈");

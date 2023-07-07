@@ -1,19 +1,20 @@
 import axios from "axios";
 
 import { notFound } from "@constants";
-import { formWeatherGeoUrl } from "@helpers";
 
 class GeocoderService {
-	async getCoordinates(location, apiKey) {
-		const { data } = await axios.get(formWeatherGeoUrl(location, apiKey));
+	async getCoordinates(location: string, apiKey: string) {
+		const { data } = await axios.get("http://api.openweathermap.org/geo/1.0/direct", {
+			params: { q: location, appid: apiKey },
+		});
 
 		if (!data?.length) return { geoData: null, error: notFound.city };
 
-		const extractedData = this.#extractData(await data);
+		const extractedData = this.extractData(await data);
 		return { geoData: extractedData, error: null };
 	}
 
-	#extractData(data) {
+	private extractData(data: any[]) {
 		const { lat, lon, name, country } = data[0];
 		return { lat, lon, name, country };
 	}

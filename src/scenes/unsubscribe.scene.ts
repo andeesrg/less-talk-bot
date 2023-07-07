@@ -1,7 +1,6 @@
 import { Scenes } from "telegraf";
 
 import { SubscribeService } from "@services";
-
 import { IBotContext } from "@interfaces";
 
 const unsubHandler = async (ctx: IBotContext) => {

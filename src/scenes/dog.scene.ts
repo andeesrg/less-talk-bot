@@ -2,8 +2,8 @@ import { Scenes } from "telegraf";
 
 import axios from "axios";
 
-import { dogApiUrl } from "@constants";
 import { IBotContext } from "@interfaces";
+import { dogApiUrl } from "@constants";
 
 const requestPicHandler = async (ctx: IBotContext) => {
 	await ctx.replyWithHTML("🔎<b>Looking for a random dog picture...</b>🐕");

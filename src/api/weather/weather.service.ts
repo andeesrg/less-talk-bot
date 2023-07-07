@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { tokens } from "@constants";
-import { formWeatherUrl, transformWeatherData } from "@helpers";
+import { transformWeatherData } from "@helpers";
+import { tokens, weatherUrl } from "@constants";
 
 import { geocoderService } from "../geocoder";
 
@@ -16,7 +16,9 @@ class WeatherService {
 		const { geoData, error } = await geocoderService.getCoordinates(location, this.apiKey);
 		if (error) return { data: null, error };
 
-		const { data } = await axios.get(formWeatherUrl(geoData?.lat, geoData?.lon, this.apiKey));
+		const { data } = await axios.get(weatherUrl, {
+			params: { lat: geoData?.lat, lon: geoData?.lon, appid: this.apiKey },
+		});
 		const transformedData = transformWeatherData(geoData?.name, data);
 		return { data: transformedData, error: null };
 	}
