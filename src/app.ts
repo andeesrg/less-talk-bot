@@ -1,3 +1,5 @@
+import { Scenes, session, Telegraf } from "telegraf";
+
 import {
 	CatCommand,
 	Command,
@@ -7,8 +9,6 @@ import {
 	StartCommand,
 	WeatherCommand,
 } from "@commands";
-import { commands, tasks as taskActions, tokens, unsub } from "@constants";
-import { IBotContext } from "@context";
 import {
 	attractions,
 	cat,
@@ -25,11 +25,14 @@ import {
 	weather,
 } from "@scenes";
 import { dbService } from "@services";
-import { Scenes, Telegraf, session } from "telegraf";
+import { IBotContext } from "@interfaces";
+import { commands, tasks as taskActions, tokens, unsub } from "@constants";
 
 class Bot {
 	bot: Telegraf<IBotContext>;
+
 	commands: Command[] = [];
+
 	stage = new Scenes.Stage<IBotContext>(
 		[
 			weather,
@@ -53,6 +56,20 @@ class Bot {
 		this.bot = new Telegraf<IBotContext>(tokens.botToken);
 		this.bot.use(session()).middleware();
 		this.bot.use(this.stage.middleware());
+		this.initErrorListeners();
+		this.initCommands();
+		this.initTasksListener();
+		this.initUnsubListener();
+	}
+
+	initErrorListeners() {
+		process.once("SIGINT", () => {
+			this.bot.stop("SIGINT");
+		});
+
+		process.once("SIGTERM", () => {
+			this.bot.stop("SIGTERM");
+		});
 	}
 
 	async init() {
@@ -68,14 +85,6 @@ class Bot {
 			command.handle();
 		}
 
-		process.once("SIGINT", () => {
-			this.bot.stop("SIGINT");
-		});
-
-		process.once("SIGTERM", () => {
-			this.bot.stop("SIGTERM");
-		});
-
 		await this.bot.launch();
 	}
 
@@ -87,12 +96,15 @@ class Bot {
 		const regex = new RegExp(
 			`${taskActions.create.action}|${taskActions.edit.action}|${taskActions.read.action}|${taskActions.remove.action}`
 		);
-		this.bot.hears(regex, ctx => ctx.scene.enter("tasks"));
+		this.bot.hears(regex, async ctx => {
+			ctx.session.chatId = ctx.message.chat.id;
+			await ctx.scene.enter("tasks");
+		});
 	}
 
 	initUnsubListener() {
-		this.bot.action(unsub.action, ctx => {
-			ctx.scene.enter("unsubscribe");
+		this.bot.action(unsub.action, async ctx => {
+			await ctx.scene.enter("unsubscribe");
 		});
 	}
 }
@@ -100,9 +112,6 @@ class Bot {
 const bot = new Bot();
 
 (async () => {
-	await dbService.connectToDB();
-	bot.initCommands();
-	bot.initTasksListener();
-	bot.initUnsubListener();
+	await dbService.connectToDb();
 	bot.init();
 })();

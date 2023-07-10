@@ -5,8 +5,10 @@
 		"moduleResolution": "node",
 		"baseUrl": "./src",
 		"paths": {
-			"@context": ["context"],
 			"@commands": ["commands"],
+			"@interfaces": ["interfaces"],
+			"@models": ["models"],
+			"@api": ["api"],
 			"@constants": ["constants"],
 			"@constants/*": ["constants/*"],
 			"@helpers": ["helpers"],

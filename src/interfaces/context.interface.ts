@@ -1,7 +1,7 @@
 import { Context, Scenes } from "telegraf";
 
 interface MySceneSession extends Scenes.WizardSessionData {
-	taskId: number | string;
+	taskId: number;
 	userLocation: string;
 }
 

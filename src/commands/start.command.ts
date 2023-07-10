@@ -1,13 +1,8 @@
-import { tasksControlButtons } from "@buttons";
 import { Command } from "@commands";
-import { IBotContext } from "@context";
 import { dbService } from "@services";
-import { Telegraf } from "telegraf";
+import { controlTasksButtons } from "@buttons";
 
 export class StartCommand extends Command {
-	constructor(bot: Telegraf<IBotContext>) {
-		super(bot);
-	}
 	handle(): void {
 		this.bot.start(async ctx => {
 			ctx.session.chatId = ctx.message.chat.id;
@@ -17,7 +12,7 @@ export class StartCommand extends Command {
 			);
 			await ctx.replyWithHTML(
 				`Hello <b>${userName}</b> and welcome to LessTalkBot👋🏼\n\n<i>See what this bot can do</i>, <b>use</b> /help`,
-				tasksControlButtons()
+				controlTasksButtons()
 			);
 		});
 	}

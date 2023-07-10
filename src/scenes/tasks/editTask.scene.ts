@@ -1,13 +1,9 @@
-import { taskEditButtons } from "@buttons";
-import {
-	taskEdit,
-	taskIdRegex,
-	taskTitleRegex
-} from "@constants";
-import { IBotContext } from "@context";
-import { extractTaskId } from "@helpers/extract";
-import { dbService } from "@services";
 import { Composer, Scenes } from "telegraf";
+
+import { dbService } from "@services";
+import { editTaskButtons } from "@buttons";
+import { IBotContext } from "@interfaces";
+import { taskEdit, taskIdRegex, taskTitleRegex } from "@constants";
 
 const taskIdHandler = new Composer<IBotContext>();
 const editTypeHandler = new Composer<IBotContext>();
@@ -23,16 +19,14 @@ const enterTaskIdHandler = async (ctx: IBotContext) => {
 };
 
 taskIdHandler.hears(taskIdRegex, async ctx => {
-	ctx.scene.session.taskId = extractTaskId(ctx.message.text);
+	ctx.scene.session.taskId = Number(ctx.message.text);
 	const tasks = await dbService.readTasks(ctx.session.chatId);
 	if (!tasks?.length) {
 		await ctx.reply("List is empty👀");
 		return ctx.scene.leave();
 	}
 
-	const matchedTask = tasks.find(
-		(task: any) => task.id === ctx.scene.session.taskId
-	);
+	const matchedTask = tasks.find((task: any) => task.id === ctx.scene.session.taskId);
 	if (!matchedTask) {
 		await ctx.reply("Task is not found🤷🏼");
 
@@ -51,7 +45,7 @@ taskIdHandler.on("text", async ctx => {
 });
 
 const enterEditTypeHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Select edit type⬇️", taskEditButtons());
+	await ctx.reply("Select edit type⬇️", editTaskButtons());
 
 	ctx.wizard.next();
 	if (typeof ctx.wizard.step === "function") {

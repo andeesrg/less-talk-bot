@@ -1,8 +1,9 @@
-import { cityRegex } from "@constants";
-import { IBotContext } from "@context";
-import { formFoodPlaces } from "@helpers";
-import { guidanceService } from "@services/guidance";
 import { Composer, Scenes } from "telegraf";
+
+import { guidanceService } from "@api";
+import { formFoodPlaces } from "@helpers";
+import { IBotContext } from "@interfaces";
+import { cityRegex } from "@constants";
 
 const cityHandler = new Composer<IBotContext>();
 
@@ -17,9 +18,7 @@ const enterCityHandler = async (ctx: IBotContext) => {
 
 cityHandler.hears(cityRegex, async ctx => {
 	await ctx.replyWithHTML("🍟<b>Gathering eateries...</b>");
-	const { data, error } = await guidanceService.getFoodPlaces(
-		ctx.message.text
-	);
+	const { data, error } = await guidanceService.getFoodPlaces(ctx.message.text);
 
 	if (error) {
 		await ctx.reply(error);
@@ -31,14 +30,8 @@ cityHandler.hears(cityRegex, async ctx => {
 });
 cityHandler.on("text", async ctx => {
 	if (!cityRegex.test(ctx.message.text)) {
-		await ctx.replyWithHTML(
-			"<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>"
-		);
+		await ctx.replyWithHTML("<b>City</b> is invalid ❌\nEnter city in proper format <b>City</b>");
 	}
 });
 
-export const food = new Scenes.WizardScene<IBotContext>(
-	"food",
-	enterCityHandler,
-	cityHandler
-);
+export const food = new Scenes.WizardScene<IBotContext>("food", enterCityHandler, cityHandler);

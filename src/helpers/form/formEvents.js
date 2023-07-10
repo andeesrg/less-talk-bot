@@ -9,10 +9,7 @@ export const formEvents = data => {
 		.slice(randomIdx, Math.min(randomIdx + 5, data.result.length))
 		.map(
 			({ name, date, day }) =>
-				`🎃<b>Title</b>: <i>${name}</i>\n⏱️<b>When</b>: <i>${extractDate(
-					date,
-					day
-				)}</i>`
+				`🎃<b>Title</b>: <i>${name}</i>\n⏱️<b>When</b>: <i>${extractDate(date, day)}</i>`
 		)
 		.join("\n\n")}
    `;

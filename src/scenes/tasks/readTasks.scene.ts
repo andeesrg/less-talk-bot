@@ -1,10 +1,11 @@
-import { IBotContext } from "@context";
-import { formTasks } from "@helpers";
-import { dbService } from "@services";
 import { Scenes } from "telegraf";
 
+import { dbService } from "@services";
+import { formTasks } from "@helpers";
+import { IBotContext } from "@interfaces";
+
 const requestTasksHandler = async (ctx: IBotContext) => {
-	await ctx.reply("Receiving tasks...⌛️");
+	await ctx.replyWithHTML("<b>Receiving tasks...</b>⌛️");
 	const tasks = await dbService.readTasks(ctx.session.chatId);
 	if (!tasks || !tasks?.length) {
 		await ctx.reply("List is empty👀");
@@ -14,7 +15,4 @@ const requestTasksHandler = async (ctx: IBotContext) => {
 	return ctx.scene.leave();
 };
 
-export const readTasks = new Scenes.WizardScene<IBotContext>(
-	"readTasks",
-	requestTasksHandler
-);
+export const readTasks = new Scenes.WizardScene<IBotContext>("readTasks", requestTasksHandler);

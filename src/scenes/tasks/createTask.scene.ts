@@ -1,7 +1,8 @@
-import { taskTitleRegex } from "@constants";
-import { IBotContext } from "@context";
-import { dbService } from "@services";
 import { Composer, Scenes } from "telegraf";
+
+import { dbService } from "@services";
+import { IBotContext } from "@interfaces";
+import { taskTitleRegex } from "@constants";
 
 const taskTitleHandler = new Composer<IBotContext>();
 

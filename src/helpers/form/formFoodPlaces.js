@@ -7,11 +7,8 @@ export const formFoodPlaces = data => {
       🗿Here're some popular food places in <b>${data.city}</b>\n\n${data.result
 		.slice(randomIdx, Math.min(randomIdx + 5, data.result.length))
 		.map(
-			({ name, rating }) =>
-				`🍿<b>Name</b>: <i>${name}</i>\n⭐️<b>Rate</b>: <i>${genRandomRate(
-					3,
-					8
-				)}/10</i>`
+			({ name }) =>
+				`🍿<b>Name</b>: <i>${name}</i>\n⭐️<b>Rate</b>: <i>${genRandomRate(3, 8)}/10</i>`
 		)
 		.join("\n\n")}
    `;

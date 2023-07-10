@@ -1,12 +1,10 @@
-import { Telegraf } from 'telegraf';
-import { Command } from '@commands';
-import { IBotContext } from '@context';
+import { Command } from "@commands";
 
 export class WeatherCommand extends Command {
-	constructor(bot: Telegraf<IBotContext>) {
-		super(bot); 
-	}
 	handle(): void {
-		this.bot.command('weather', ctx => ctx.scene.enter('weather'));
+		this.bot.command("weather", async ctx => {
+			ctx.session.chatId = ctx.message.chat.id;
+			await ctx.scene.enter("weather");
+		});
 	}
 }

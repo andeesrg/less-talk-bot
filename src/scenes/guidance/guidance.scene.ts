@@ -1,7 +1,8 @@
-import { guidButtons } from "@buttons";
-import { guid } from "@constants/actions";
-import { IBotContext } from "@context";
 import { Composer, Scenes } from "telegraf";
+
+import { guidButtons } from "@buttons";
+import { IBotContext } from "@interfaces";
+import { guid } from "@constants/actions";
 
 const guidHandler = new Composer<IBotContext>();
 
@@ -17,14 +18,14 @@ const enterGuidHandler = async (ctx: IBotContext) => {
 	}
 };
 
-guidHandler.action(guid.attractions.action, ctx => {
-	ctx.scene.enter("attractions");
+guidHandler.action(guid.attractions.action, async ctx => {
+	await ctx.scene.enter("attractions");
 });
-guidHandler.action(guid.events.action, ctx => {
-	ctx.scene.enter("events");
+guidHandler.action(guid.events.action, async ctx => {
+	await ctx.scene.enter("events");
 });
-guidHandler.action(guid.food.action, ctx => {
-	ctx.scene.enter("food");
+guidHandler.action(guid.food.action, async ctx => {
+	await ctx.scene.enter("food");
 });
 
 export const guidance = new Scenes.WizardScene<IBotContext>(
