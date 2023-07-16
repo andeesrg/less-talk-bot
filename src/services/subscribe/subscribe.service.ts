@@ -2,7 +2,7 @@ import cron from "node-cron";
 import { Telegraf } from "telegraf";
 
 import { weatherService } from "@api";
-import { formWeatherForecast } from "@helpers";
+import { convertToUTC, formWeatherForecast } from "@helpers";
 import { unsubButton } from "@buttons";
 import { IBotContext } from "@interfaces";
 import { tokens } from "@constants";
@@ -22,8 +22,8 @@ export class SubscribeService {
 
 	async activateSub(chatId: number, location: string, time: { hours: string; mins: string }) {
 		const { hours, mins } = time;
-		const utcTime = +hours - 3;
-		const currTask = cron.schedule(`${mins} ${utcTime} * * *`, async () => {
+		const utcHours = convertToUTC(+hours);
+		const currTask = cron.schedule(`${mins} ${utcHours} * * *`, async () => {
 			const { data } = await weatherService.getCurrWeather(location);
 			new Telegraf(tokens.botToken).telegram.sendMessage(chatId, formWeatherForecast(data), {
 				parse_mode: "HTML",
